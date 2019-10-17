@@ -1,0 +1,20 @@
+<!-- Generated template for the GomoHeaderComponent component -->
+<div>
+  <ion-grid no-padding style="margin-top:12px;">
+    <ion-row>
+      <ion-col style="text-align:left;padding-left:18px;" col-8 >
+       <img  src="assets/icon/Gomo_Msg_icon/gomo_msg_icon.png" style="width:70%;margin-bottom:5px"/>
+      </ion-col>
+      <ion-col >
+         <div style="float:right;margin-top: 5px;margin-right:4rem;" *ngIf="isNewConv==false;">
+             <img  src="assets/imgs/HeaderIcons/new_msg_icon.png" style="width:20px;margin:3px;" (click)="createNewConv()"/>
+         </div>
+ 
+       <div style="float:left;margin-top: 5px;" *ngIf="isBroadCast==false;">
+         <img  src="assets/imgs/HeaderIcons/broadcast_icon.png" style="width:25px;" (click)="getBroadcast()"/>
+       </div>
+       
+      </ion-col>
+    </ion-row>
+ </ion-grid>
+</div>

@@ -1,0 +1,128 @@
+page-tagmodal {
+
+  .tagcolor{
+      background-color : #461570; 
+      width:46%;
+      float:left;
+      margin:0px 4px 15px 4px;
+      font-size: 11px;
+      height:29px;
+  }
+
+  ion-col.my-thin-col {
+      flex: 0 0 4px;
+      padding:0;
+      margin-right:10px;
+    }
+
+  // .button-inner{
+  //     width : 40% !important;
+  // }
+
+  
+
+  .btngroup::after {
+      clear: both;
+    }
+
+
+  .tagbd{
+     clear :  both;
+     padding-top: 30px;
+  }
+
+  ion-input{
+      border: 1px solid gray;
+  }
+
+  .cardheader{
+     background: #2295cf;
+     height:55%;
+     font-size:15px !important;
+     color:white !important;
+  }
+
+  .card-header-md {
+    padding: 8px;
+  }
+
+  .card-header-md ion-title{
+    width: 50%;
+    float:left;
+  }
+
+  .cardtitle{
+    width:40%;
+    float:left;
+    padding:1px;
+    margin:1px;
+    text-align:left;
+  }     
+  .cardlable{
+    width:40%;
+    float:right;
+    padding:1px;
+    margin:1px;
+    text-align:right;
+  }
+
+  .card-md {
+    margin: 60px 10px 0px;
+  }
+
+
+  .btnblock{
+    color: #1481a3;
+  }
+
+  .text-input-md {
+    margin: 5px 5px;
+}
+
+
+  // .toolbar-md {
+  //   padding: 1px;
+  //   min-height: 44px;
+  // }
+
+  // .toolbar-title-md {
+  //   padding: 0 12px;
+  //   font-size: 15px;
+  // }
+
+  
+background-color: rgba(0, 0, 0, 0.5);
+ion-content {
+  &.content {
+      div.scroll-content {
+          top: 10%;
+          left: 10%;
+          width: 80%;
+          height: 65%;
+          overflow:hidden;
+      }
+  }
+
+  &.content-ios {
+      background-color: rgba(0, 0, 0, 0.3);
+
+      div.scroll-content {
+          background-color: #f8f8f8;
+          border-radius: 13px;
+          padding: 16px;
+      }
+  }
+
+  &.content-md {
+      background-color: rgba(0, 0, 0, 0.5);
+      
+      div.scroll-content {
+          background-color: #fafafa;
+          border-radius: 2px;
+          box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+          padding: 24px;
+      }
+  }
+}
+}
+

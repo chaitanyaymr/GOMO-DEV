@@ -11,7 +11,7 @@ $font-path: "../assets/fonts";
 // http://ionicframework.com/docs/theming/rtl-support/
 $app-direction: ltr;
 
-
+// @import '../../node_modules/@ctrl/ngx-emoji-mart/picker.css';
 @import "ionic.globals";
 
 
@@ -38,7 +38,8 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  disabledgrey:grey
 );
 
 
@@ -86,3 +87,61 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+@font-face {
+  font-family: 'Roboto-Black';
+  src: url('../assets/fonts/Roboto-Black.ttf');
+}
+@font-face {
+  font-family: 'Roboto-BlackItalic';
+  src: url('../assets/fonts/Roboto-BlackItalic.ttf');
+}
+@font-face {
+  font-family: 'Roboto-Bold';
+  src: url('../assets/fonts/Roboto-Bold.ttf');
+}
+@font-face {
+  font-family: 'Roboto-BoldItalic';
+  src: url('../assets/fonts/Roboto-BoldItalic.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-Italic';
+  src: url('../assets/fonts/Roboto-Italic.ttf');
+}
+@font-face {
+  font-family: 'Roboto-Light';
+  src: url('../assets/fonts/Roboto-Light.ttf');
+}
+@font-face {
+  font-family: 'Roboto-LightItalic';
+  src: url('../assets/fonts/Roboto-LightItalic.ttf');
+}
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url('../assets/fonts/Roboto-Medium.ttf');
+}
+
+
+@font-face {
+  font-family: 'Roboto-MediumItalic';
+  src: url('../assets/fonts/Roboto-MediumItalic.ttf');
+}
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('../assets/fonts/Roboto-Regular.ttf');
+}
+@font-face {
+  font-family: 'Roboto-Thin';
+  src: url('../assets/fonts/Roboto-Thin.ttf');
+}
+@font-face {
+  font-family: 'Roboto-ThinItalic';
+  src: url('../assets/fonts/Roboto-ThinItalic.ttf');
+}
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../assets/fonts/fontawesome-webfont.woff2');
+}
+
+$alert-md-button-text-color: #388E3C;

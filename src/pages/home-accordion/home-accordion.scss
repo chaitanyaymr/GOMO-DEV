@@ -1,0 +1,98 @@
+page-home-accordion {
+   
+    ion-card
+    {
+        box-shadow: unset!important;
+        -webkit-box-shadow:unset !important;
+        margin:0px 10px 0px 10px !important;
+    }
+   
+    input.searchbar-input
+    {
+        line-height:0rem !important;
+    }
+    .searchbar-search-icon {
+        top:4px !important;
+        left:123px !important;
+        display:none !important;
+    }
+    .searchbar-md .searchbar-clear-icon
+    {
+        right:0px !important
+
+    }
+    .card-header{
+        background-color:#2295cf;//map-get($colors,primary);
+        color:#fff;
+    }
+    .card-content{
+        background-color:#2295cf;//map-get($colors,primary);
+        color:#fff;
+        padding:0px 16px;
+        max-height:0px;
+    }
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    ion-content {
+        &.content {
+            div.scroll-content {
+               // top: 6rem;
+                left: 0%;
+                width: 60%;
+                //height: 65%;
+                //overflow:hidden;
+            }
+        }
+      
+        &.content-ios {
+            background-color: rgba(0, 0, 0, 0.2) !important;
+      
+            div.scroll-content {
+                background-color: #2295cf;
+                border-radius: 13px;
+                padding: 16px;
+            }
+        }
+      
+        &.content-md {
+            background-color: rgba(0, 0, 0, 0.2) !important;
+            
+            div.scroll-content {
+                background-color: #2295cf;
+                border-radius: 2px;
+                box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+                padding: 24px;
+            }
+        }
+      }
+      .searchbar-input{
+          font-size:1.2rem !important;
+          padding: 6px 10px 6px 10px !important;
+          width: 75%;
+          box-shadow: unset !important;
+      }
+      ion-searchbar{
+          padding:0px !important;
+          background: white !important;
+      }
+
+      ::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (min-height:800px) {
+    .scroll-content {
+        top:6rem;
+    }
+}
+@media screen and (max-height:800px) {
+    .scroll-content {
+        top:5.2rem;
+    }
+}
+@media screen and (max-height:728px) {
+    .scroll-content {
+        top:6.2rem;
+    }
+}
+}

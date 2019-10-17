@@ -1,0 +1,80 @@
+page-docs-details-pop-up {
+   
+    
+   
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    ion-content {
+        &.content {
+            div.scroll-content {
+               // top: 6rem;
+                left: 25%;
+                width: 75%;
+                //height: 65%;
+                //overflow:hidden;
+            }
+        }
+      
+        &.content-ios {
+            background-color: rgba(0, 0, 0, 0.2) !important;
+      
+            div.scroll-content {
+                background-color: #fff;
+                color:black;
+                border-radius: 13px;
+                padding: 16px;
+            }
+        }
+      
+        &.content-md {
+            background-color: rgba(0, 0, 0, 0.2) !important;
+            
+            div.scroll-content {
+                background-color: #fff;
+                color:black;
+                border-radius: 2px;
+                box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+                padding: 24px;
+            }
+        }
+      }
+     
+
+
+
+@media screen and (min-height:800px) {
+    .scroll-content {
+        top:6rem;
+    }
+}
+@media screen and (max-height:800px) {
+    .scroll-content {
+        top:5.2rem;
+    }
+}
+@media screen and (max-height:728px) {
+    .scroll-content {
+        top:6.2rem;
+    }
+}
+ 
+  .select_viewPermission{
+      color:dodgerblue;
+      text-decoration: underline;
+  }
+   
+  .unselect_viewPermission{
+    color:grey;
+    text-decoration: underline;
+}
+
+.ddlclass{
+    margin-bottom: 2%;
+    padding: 5px;
+    background: transparent;
+    border-radius: 5px;
+    width: 200px;
+    color:grey
+}
+
+
+}

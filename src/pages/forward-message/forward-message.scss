@@ -1,0 +1,227 @@
+page-forward-message {
+
+  .toolbar-background {
+    background: #2295cf  !important;
+}
+
+  .scroll-content {
+    overflow-y: auto !important;
+  }
+
+  .searchbar-search-icon{
+    display:none !important;
+  }
+
+  .searchbar-md .searchbar-input {
+    padding: 5px 18px !important;
+  }
+
+  .btn-wrapper {
+    text-align: center;
+}
+
+.contitle{
+    font-size:12px;
+    font-weight: bold;
+}
+
+.consubtitle{
+    font-size:10px;
+    color: skyblue;
+}
+
+.navheader{
+    background-color: skyblue;
+}
+
+.concheckbox{
+    margin-right : 12px !important;
+}
+
+.conactive{
+    width:6px;
+    height:6px;
+    background-color: green;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    margin-left: 36px;
+}
+
+.toolbar-md {
+    padding: 1px;
+    min-height: 44px;
+  }
+
+  .toolbar-title-md {
+    padding: 0 12px;
+    font-size: 15px;
+  }
+
+
+  
+.cardheader{
+   background: #2295cf;
+   height:55%;
+   font-size:15px !important;
+   color:white !important;
+}
+
+.card-header-md {
+  padding: 8px;
+}
+
+.card-header-md ion-title{
+  width: 50%;
+  float:left;
+}
+
+.cardtitle{
+  width:70%;
+  float:left;
+  padding:1px;
+  margin:1px;
+  text-align:left;
+}     
+.cardlable{
+  width:28%;
+  float:right;
+  padding:1px;
+  margin:1px;
+  text-align:right;
+}
+
+.card-md {
+  margin: 100px 10px 0px;
+}
+
+
+// .btnblock{
+//  // color: #1481a3;
+// }
+
+.text-input-md {
+  margin: 5px 5px;
+}
+
+
+ion-scroll {
+height: 300px;
+}
+
+.footer{
+  background-color: white;
+  min-height: 1em;
+  height: auto;
+}
+
+   
+background-color: rgba(0, 0, 0, 0.5);
+ion-content {
+&.content {
+    div.scroll-content {
+        top: 10%;
+        left: 10%;
+        width: 80%;
+        height: 85%;
+        overflow:hidden;
+    }
+}
+
+&.content-ios {
+    background-color: rgba(0, 0, 0, 0.3);
+
+    div.scroll-content {
+        background-color: #f8f8f8;
+        border-radius: 13px;
+        padding: 16px;
+    }
+}
+
+&.content-md {
+    background-color: rgba(0, 0, 0, 0.5);
+    
+    div.scroll-content {
+        background-color: #fafafa;
+        border-radius: 2px;
+        box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+        padding: 24px;
+        
+    }
+}
+}
+
+
+.groupnameclass{
+border: 1px solid lightgray;
+}
+
+.imgstyle{
+border-radius: 50%;
+overflow: hidden;
+width: 80px !important;
+height: 80px !important;
+}
+
+.camicon{       
+margin: 0px;
+padding: 0px;
+position: absolute;
+left: 87px;
+top: 214px;
+z-index: 100; 
+}
+
+ion-avatar, ion-thumbnail {
+display: block;
+line-height: 1;
+float: left;
+}
+
+.btnblock{
+float:right;
+// margin-left: 131px;
+//clear:both;
+}
+
+.inputblock{
+margin:10px;
+}
+
+
+.item.item-md .checkbox-md {
+    margin: 13px 18px 0px 4px !important;
+  }
+
+  .maxuser{
+    width : var(--width);
+  }
+
+  .minuser{
+     width : var(--width);
+  }
+
+
+.usersblock{
+ margin: 0px 3px 0px 8px !important;
+ padding: 0px !important;
+ width: 53px;
+}
+
+.removeuser{
+margin: 0px;
+padding: 0px;
+position: relative;
+left: 49px;
+top: 7px;
+z-index: 100;
+//font-size: 11px;
+}
+.item-cover{
+  position : absolute !important;
+}
+
+.item.item-md .checkbox-md {
+  margin: 0px 18px 0px 4px !important;
+}
+}

@@ -1,0 +1,76 @@
+<ion-header >
+    <ion-navbar hideBackButton>
+      <gomo-header></gomo-header>
+    </ion-navbar>
+  <ion-row>
+      <ion-searchbar  [(ngModel)]="searchtxt" ></ion-searchbar> 
+  </ion-row>
+
+   
+
+
+        <ion-row class="fixediconbar" >
+          <ion-col>
+              <ion-label ion-left class="msgblock">
+                <span (click)="backtoconv()"><ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon><span style="padding:10px;font-size:1.2em">Contacts</span></span>
+              </ion-label>
+              <span ion-right class="iconblock">
+                <span class="groupbtn" (click)="createNewGroup()"><ion-icon ios="ios-add" md="md-add"></ion-icon><ion-icon ios="ios-contacts" md="md-contacts"></ion-icon></span>
+              </span>
+          </ion-col> 
+        </ion-row>
+  
+   
+  </ion-header>
+  <ion-content>
+      <ion-row>
+          <ion-col style="width:100%;padding:0px;">
+              <ion-list >  
+            
+                  <!--------------------- Groups List -------------------------------->
+                  
+                  <div  *ngFor="let i of userGroupList | searchfilter :  {str : searchtxt, str2 : 'nonconv'}; let x = index">
+                      <ion-label class="alpastyle" *ngIf="x == 0">
+                          Groups
+                      </ion-label>
+                    <ion-item-sliding  #listconv>
+                       <ion-item (click)="gotoconv(i,2)">
+                           <ion-avatar item-start>
+                             <img *ngIf="i.groupType.trim()=='I'" src="https://devapi.usegomo.com/Images/Membersusers/{{i.converationImage}}"  onError="this.src='assets/icon/DeafaultUserImg.png'" />
+                             <img *ngIf="i.groupType.trim()=='G'" src="https://devapi.usegomo.com/Images/GroupIcons/{{i.converationImage}}"    onError="this.src='assets/icon/gpeople.png'"/>
+                             <img *ngIf="i.groupType.trim()=='B'" src="assets/icon/gpeople.png" />
+                             <img *ngIf="i.groupType.trim()==''" src="assets/icon/DeafaultUserImg.png" />
+                           </ion-avatar>
+                           <h2>{{i.converationName}}</h2> 
+                           <p>{{i.converationDesignation}}</p>                     
+                         </ion-item>                  
+                    </ion-item-sliding>
+                  </div>
+        
+                  <!---------------------------- Individual List ------------------------------------>
+                  <div  *ngFor="let i of convnewlist | searchfilter :  {str : searchtxt, str2 : 'nonconv'}">
+                      <ion-label class="alpastyle" *ngIf="getShortName(i.converationName)">
+                        {{conchar1}}
+                       </ion-label>
+                    <ion-item-sliding  #listconv>
+                       <ion-item (click)="gotoconv(i,2)">
+                           <ion-avatar item-start>
+                             <img *ngIf="i.groupType.trim()=='I'" src="https://devapi.usegomo.com/Images/Membersusers/{{i.converationImage}}"  onError="this.src='assets/icon/DeafaultUserImg.png'"  />
+                             <img *ngIf="i.groupType.trim()=='G'" src="https://devapi.usegomo.com/Images/GroupIcons/{{i.converationImage}}"    onError="this.src='assets/icon/gpeople.png'"/>
+                             <img *ngIf="i.groupType.trim()=='B'" src="https://devapi.usegomo.com/Images/GroupIcons/{{i.converationImage}}"              onError="this.src='assets/icon/gpeople.png'" />
+                             <img *ngIf="i.groupType.trim()==''" src="https://devapi.usegomo.com/Images/Membersusers/{{i.converationImage}}"    onError="this.src='assets/icon/DeafaultUserImg.png'"/>
+                           </ion-avatar>
+                           <h2>{{i.converationName}}</h2> 
+                           <p>{{i.converationDesignation}}</p>                       
+                         </ion-item>
+                    </ion-item-sliding>
+                  </div>
+        
+        
+               </ion-list> <!--- tk09 end --->
+          </ion-col>
+          </ion-row>
+  </ion-content>
+  <ion-footer>
+      <gomofooter></gomofooter>
+    </ion-footer>

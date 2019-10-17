@@ -1,0 +1,62 @@
+<ion-card style="margin-top:30%;max-height:470px;min-height:200px;">
+    <ion-grid no-padding>
+
+        <ion-row style="background:dodgerblue;">
+          <ion-col col-10 >
+            <ion-label style="float:left;margin-left:3%">
+                <img  src="assets/imgs/HeaderIcons/broadcast_icon.png" style="width:15px;" />
+            </ion-label>
+             
+         
+            <ion-label style="color:white;float:left;font-weight: bold">Broadcast Information</ion-label>
+          </ion-col>
+          <ion-col col-2 style="text-align: right">
+              <ion-label style="color:white;font-weight: bold"  (click)="closeModal()">
+                  Close
+              </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row style="max-height:400px !important;overflow-y: scroll">
+          <ion-col>
+            <ion-card *ngFor="let user of broadcastList;let i=index" style="color:white;background: black;font-weight:bold;">
+             <ion-grid>
+               <ion-row>
+                 <ion-col>
+                    <ion-label style="margin:0px !important;float:left">Name:</ion-label>
+                    <ion-label style="margin:0px !important;float:left;padding-left:1%">{{user.bUserName}}</ion-label>
+                 </ion-col>
+               </ion-row>
+               <ion-row>
+                  <ion-col>
+                     <ion-label style="margin:0px !important;float:left">Read Status:</ion-label>
+                     <ion-label style="margin:0px !important;float:left;padding-left:1%" *ngIf="user.bReadStatus.toUpperCase()=='Y' ">{{user.bReadDateTime | mediapipe}}</ion-label>
+                     <ion-label style="margin:0px !important;float:left;padding-left:1%;color:red" *ngIf="user.bReadStatus.toUpperCase()!='Y' ">Not yet read</ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                       <ion-label style="margin:0px !important;float:left">Acknowledgement:</ion-label>
+                       <ion-label style="margin:0px !important;float:left;padding-left:1%" *ngIf="user.bAckStatus.toUpperCase()=='Y'">{{user.bAckDateTime | mediapipe}}</ion-label>
+                       <ion-label style="margin:0px !important;float:left;padding-left:1%;color:red" *ngIf="user.bAckStatus.toUpperCase()!='Y'">Not yet acknowledged</ion-label>
+                    </ion-col>
+                  </ion-row>
+             </ion-grid>
+               
+              
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+</ion-card>
+
+
+
+
+
+
+
+
+
+
+
+

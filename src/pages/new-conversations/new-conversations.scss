@@ -1,0 +1,65 @@
+page-new-conversations {
+    .fixediconbar{
+        background:white;
+        height : 38px;
+        padding: 3px;
+   }
+   .iconblock{
+    float:right;
+    margin: 4px 10px 0px 0px;
+}
+.iconblock img{
+    margin-right:10px;
+}
+.msgblock {
+    /* padding: 33px; */
+    margin: 4px 0px 0px 10px !important;
+    font-size: 16px;
+    width: 50%;
+    float: left;
+}
+.alpastyle {
+    background-color: #cbd0d6;
+    border: none;
+    height: 23px;
+    margin: 0px;
+    padding: 5px;
+    font-weight: bold;
+    font-family: Arial;
+}
+.list {
+    margin:0px !important; 
+}
+.searchbar {         
+    padding: 0px;     
+
+}
+
+.fixediconbar{
+     background:white;
+     height : 38px;
+     padding: 3px;
+}
+
+  
+  .ionlistrow{
+    margin-top: 75px;
+  }
+  .searchbar .searchbar-search-icon {
+    top: 8px;
+    margin-left: 6px;
+  
+}
+.list .item-block .item-inner {
+    border-bottom : none;
+}
+.item ion-icon[item-right] {
+    font-size: 20px;
+}
+  
+
+
+.item [item-end] {
+    margin: 5px 0px 9px 16px;
+}
+}

@@ -1,0 +1,482 @@
+<!--
+  Generated template for the MessengeraboutPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header *ngIf="headerishide != false">
+  <ion-navbar hideBackButton>
+    <gomo-header></gomo-header>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <!-- <label style="padding:2rem;position:absolute;">
+            WelCome to Gomo Messenger...!
+            </label>  -->
+
+
+  <!-- <div>
+                <ion-row>
+                    <div style="width:100%;height:40px;">
+             <ion-col> <div style="width:30%;height:40px; text-align: center;font-size: 17px;float:left;line-height: 40px;border-width: 3px;border-right-style: ridge;" (click)="about()" [ngStyle]="{'background' : abtdivcolor , 'color' : abtfontclr }"><label>About</label> </div></ion-col>
+             <ion-col> <div style="width:30%;height:40px; text-align: center;font-size: 17px;float:left;line-height:40px;border-width: 3px;border-right-style: ridge;" (click) = "Docs()" [ngStyle]="{'background' : docsdivcolor , 'color' : docsfontclr }" ><label>Docs</label> </div></ion-col>
+             <ion-col> <div style="width:30%;height:40px; text-align: center;font-size: 17px;float:left;line-height: 40px;border-width: 3px;border-right-style: ridge;" (click) ="Media()"[ngStyle]="{'background' : mediadivcolor , 'color' : mediafontclr }" ><label>Media</label> </div> </ion-col>
+             <ion-col> <div style="width:10%;height:40px;background:#d3d6db; color:black;text-align: center;float:left;line-height: 40px;" (click) ="aboutback()" > <img src="assets/imgs/Gomo_Msg_icon/close_icon.png" style="width: 10px;height:10px;  background: none;float: left;margin-left: 14px;margin-top: 15px;" /></div></ion-col>
+            </div>
+            </ion-row>
+            </div>
+              -->
+
+
+  <div *ngIf="aboutgroup == true">
+    <!-- <ion-card> -->
+    <div style="background-color:dodgerblue; color:white;">
+      <label style="line-height:4rem;margin-left:15px;font-size: 1.7rem;font-weight: 500;">About</label>
+
+      <img src="assets/imgs/close_icon.png" style="float: right;margin-top:1.3rem;height:15px;margin-right:10px;"
+        (click)="aboutback()"></div>
+    <div *ngFor="let i of Messengergroupinfo ">
+      <div>
+        <ion-row>
+          <div style="height:auto;background: white;width:100%;">
+            <div style="padding: 20px 1px 15px 10px;">
+              <ion-col>
+                <div style="width:7%;float:left;margin-top:15px;">
+                  <img src="assets/imgs/Right_arrow.png" style="width:20px;height:20px;transform:rotate(180deg)"
+                    (click)="aboutback()">
+                </div>
+              </ion-col>
+              <ion-col>
+                <div style="float:left;width:15%;margin-bottom: 15px;" (click)="ShowCameraPopup()">
+                  <ion-avatar>
+                    <img src="{{groupiconsurl}}{{i.groupImage}}"
+                      onError="this.src='https://devapi.usegomo.com/Images/Membersusers/people.png'"
+                      style="height:50px;width:50px; border-radius: 50%;">
+                  </ion-avatar>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div *ngIf="grpname !=false">
+                  <div style="width:58%;height:auto; float:left;margin-left:1rem">
+                    <ion-label style="font-size:14px;color:black;font-weight: bold;"> {{ i.groupName }}
+                      <br> <span style="font-size:10px;color:skyblue">{{i.groupDesg}}</span>
+                    </ion-label>
+                  </div>
+                  <div style="margin-top: 17px; width: 15%; float: right;" *ngIf="this.navdata.convtype.trim().toUpperCase()!='B'">
+                    <img src="assets/imgs/Gomo_Msg_icon/edit_blue_icon.png" (click)="editGroupname()">
+                  </div>
+                </div>
+              </ion-col>
+
+
+
+              <ion-col>
+                <div *ngIf="Editedgrpname !=false">
+                  <div style="width:55%;height:60px; float:left;">
+                    <div style="height:40px;">
+                      <ion-list>
+                        <ion-item>
+                          <ion-input type="text" [(ngModel)]="groupName" style="color:black;" (ionChange)="noSpace($event)"></ion-input>
+                        </ion-item>
+                      </ion-list>
+                    </div>
+                  </div>
+                  <div style="margin-top: 15px; width: 15%; float: right;">
+                    <ion-icon name="checkmark" (click)="saveGroupname()" style="color:black;"></ion-icon>
+                  </div>
+                </div>
+              </ion-col>
+
+            </div>
+          </div>
+        </ion-row>
+      </div>
+      <!-- </ion-card> -->
+
+      <div>
+        <ion-row>
+          <div style="width:100%;height:30px;background:#d3d6db;" *ngIf="Messengergroupuserinfo">
+            <ion-col>
+              <div style="float:left;width:40%;text-align: center;line-height: 27px;"><label
+                  style="color:black;margin: 10px 0px 10px 19px !important;float: left;">
+                  {{Messengergroupuserinfo?.length || '0'}} Participants</label></div>
+            </ion-col>
+            <ion-col *ngIf="this.navdata.convtype.trim().toUpperCase()!='B'">
+              <div style="float: left;width:60%;text-align: center;" (click)="participants()">
+                <label style="color:royalblue;margin: 9px;float:right">Add/Remove participants</label>
+                <img src="assets/imgs/add_icon.png" style="width:15px;height:15px;margin-top:8px;float:right">
+              </div>
+            </ion-col>
+          </div>
+        </ion-row>
+      </div>
+
+      <div style="height:200px;overflow-x:auto;background: white;">
+        <div *ngFor=" let i of Messengergroupuserinfo">
+          <ion-item style="max-height: 8rem;">
+            <ion-avatar item-left style="margin-top: 15px;margin-right: 10px !important;">
+              <img src="{{usericonurl}}{{i.userImage}}" onError="this.src='assets/icon/DeafaultUserImg.png'"
+                style="height:35px;width:35px">
+            </ion-avatar>
+            <div style="float:left;width:85%;">
+              <ion-card-title class="cardclass">{{i.userName}} </ion-card-title>
+              <ion-card-content style="color:royalblue; padding: 0px 0px;font-size: 10px;"> {{i.userRole}}
+              </ion-card-content>
+            </div>
+            <div style="margin-top: 10px; width: 10%; float: left;" (click)="goToChat(i)"
+              *ngIf="i.userId!=loggedinUserId"> <img src="assets/imgs/Gomo_Msg_icon/caht_blue_icon.png"> </div>
+          </ion-item>
+        </div>
+      </div>
+
+      <div style="background: white;">
+        <!-- <ion-row>
+        <div style="width:100%; color:#208cef;height:25px;margin-left:22px;padding-top:10px;"><label style="font-size:15px;">Notes:</label> </div></ion-row>
+        <ion-row>
+        <div style="width:100%;height:40px;"> 
+        <div style="width:70%;float:left;margin-left:20px;padding-top:8px;"><label style="color:black;font-size:15px;">if unreachable contact margo at 604-354-2502 or <a href="margo@champion.com">margo@champion.com</a></label></div>  
+        <div style="width:15%; float:right;display:none"><img src="assets/imgs/Gomo_Msg_icon/edit_blue_icon.png"> </div>
+        </div></ion-row> -->
+
+        <div style="margin-left:55px;margin-top:10px;" *ngIf="this.navdata.convtype.trim().toUpperCase()!='B'">
+          <!-- <ion-row><div style="height:28px;width:75%;background:#d3d6db;margin-top:5px;color:black;line-height: 25px;" ><label style=" margin-left:25px;">Tagged messages </label></div></ion-row> -->
+          <ion-row>
+            <div style="height:28px; width:75%;background: #d3d6db;margin-top:5px;color:black;line-height: 25px;"><label
+                style=" margin-left:25px;">Mute </label>
+              <input type="checkbox" [(ngModel)]="chkMutegrp" [checked]="chkMutegrp" (change)="muteChat($event)"
+                style="float: right;margin-right:10px;margin-top:7px;" />
+              <!-- <ion-checkbox [(ngModel)]="chkMutegrp" style="float: right;margin-right:10px;"  (click)="muteConv()" > </ion-checkbox>    -->
+            </div>
+          </ion-row>
+          <ion-row>
+            <div style="height:28px;width:75%;background:#d3d6db;margin-top:5px;color:black;line-height: 25px;"
+              (click)="LeaveGroup(i)"><label style=" margin-left:25px;">Leave Group</label> </div>
+          </ion-row>
+        </div>
+      </div>
+
+    </div>
+  </div> <!--  Aboutgroup div closed -->
+
+
+
+  <!-- individual info -->
+  <div *ngIf="aboutperson != false">
+    <div style="background-color:dodgerblue; color:white;">
+      <label style="line-height:4rem;margin-left:15px;font-size: 1.7rem;font-weight: 500;">About</label>
+      <img src="assets/imgs/close_icon.png" style="float: right;margin-top:1.3rem;height:15px;margin-right:10px;"
+        (click)="aboutback()"></div>
+    <ion-row>
+      <div style="height:auto;background: white;width:100%;">
+        <div style="padding: 20px 1px 15px 10px;">
+          <ion-col>
+            <div style="width:8%;float:left;margin-top:15px;"> <img src="assets/imgs/Right_arrow.png"
+                style="width:20px;height:20px;transform:rotate(180deg)" (click)="aboutback()"> </div>
+          </ion-col>
+          <ion-col>
+            <div style="float:left;width:18%;">
+              <ion-avatar>
+                <img src="{{usericonurl}}{{Messengergroupinfo[0].groupImage}}"
+                  onError="this.src='assets/icon/DeafaultUserImg.png'"
+                  style="height:55px;width:55px;border-radius:50%;">
+              </ion-avatar>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div style="width:60%; float:left;" *ngFor="let i of Messengergroupinfo">
+              <div style="height:auto;">
+                <ion-label style="font-size:14px;color:black;font-weight: bold;margin-bottom:1% !important;"> {{ i.groupName }}</ion-label>
+             
+              
+                <ion-label  style="color:royalblue;font-size:13px;margin-top:0% !important;"> {{i.groupDesg}} </ion-label>
+              </div>
+              <!-- <div style="color:royalblue;font-size:10px;" > <ion-label> joined 15.07.19 @ 4.40pm </ion-label> </div> -->
+            </div>
+          </ion-col>
+
+        </div>
+      </div>
+    </ion-row>
+
+    <div style="border:1px solid lightgray; margin-top:3%"> </div>
+
+    <div style="height:200px;background: white; border-bottom-style: ridge;width:100%;">
+      <div style="margin-left:5%;margin-top:5%;">
+        <ion-grid *ngFor="let i of MessengergroupIndividualinfo">
+          <ion-row>
+            <ion-col style="padding: 10px 0px 10px 0px">
+              <div style="width:70%;float:left;"><label style="color:#208cef;font-size:12px;">Phone:</label><br />
+                <label style="color:black;font-size:12px;">{{ i. phoneNumber}}</label>
+              </div>
+              <div style="width:10%; float:right;display: none"> <img
+                  src="assets/imgs/Gomo_Msg_icon/edit_blue_icon.png"> </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="padding: 10px 0px 10px 0px">
+              <div style="width:100%;float:left;"><label style="color:#208cef;font-size:12px;">Email:</label><br />
+                <label style="color:#0000EE;text-decoration: underline">{{i.eMail}}</label>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col style="padding: 10px 0px 10px 0px">
+              <label style="color:#208cef;font-size:12px;">Company Address: </label><br />
+              <label style="color:black;font-size:12px;font-weight: bold;"> {{i.companyName}} </label><br />
+              <label style="color:black;font-size:12px;">{{i.addLine}} </label><br />
+              <label style="color:black;font-size:12px;"> {{i.city}} , {{i.stateCode}} {{i.zipCode}} </label><br />
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col> <a>{{(i.companyMail)!=''? i.companyMail :''}}</a> </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+
+    <div style="background: white;padding-bottom:10px;">
+      <div style="margin-left: 1%;">
+        <ion-row>
+          <div style="width:100%; color:#208cef;height:25px;margin-left:20px;padding-top:10px;"><label
+              style="font-size:15px;">Notes:</label> </div>
+        </ion-row>
+        <ion-row>
+          <div style="width:100%;height:40px;">
+            <div style="width:75%;float:left;margin-left:20px;padding-top:8px;"><label
+                style="color:black;font-size:15px;">If unreachable, please contact me @<br />
+                {{individual_email}}</label></div>
+            <div style="width:12%; float:right;display: none"><img src="assets/imgs/Gomo_Msg_icon/edit_blue_icon.png">
+            </div>
+          </div>
+        </ion-row>
+        <div style="margin-left:25px;margin-top:10px;" *ngFor="let i of Messengergroupinfo">
+          <ion-row>
+            <div style="height:28px; width:70%;background: #d3d6db;margin-top:5px;color:black;line-height: 25px;"><label
+                style=" margin-left:20px;">Mute </label>
+              <input type="checkbox" [(ngModel)]="chkMutechat" [checked]="chkMutechat" (change)="muteChat($event)"
+                style="float: right;margin-right:10px;margin-top:7px;" />
+              <!-- <ion-checkbox style="float: right;margin-right:10px;"> </ion-checkbox>    -->
+            </div>
+          </ion-row>
+          <!-- <ion-row> <div style="height:28px;width:70%;background:#d3d6db;margin-top:5px;color:black;line-height: 25px;" ><label style=" margin-left:20px;">Tagged messages </label></div></ion-row> -->
+
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- individual info closed -->
+
+
+
+  <!--  Docs div starting-->
+
+  <div *ngIf="docsdiv != false" style="background: white;">
+
+    <div style="background-color:dodgerblue; color:white;"><label
+        style="line-height:4rem;margin-left:45px;font-size: 1.6rem;font-weight: 500;">Documents/Media </label>
+      <img src="assets/imgs/close_icon.png" style="float: right;margin-top:1.3rem;height:15px;margin-right:10px;"
+        (click)="docsback()"></div>
+
+    <div style="width:100%; background: white;">
+      <div style="width:8%;float:left;margin-top:4px;margin-left:10px;"> <img src="assets/imgs/Right_arrow.png"
+          style="width:20px;height:15px;transform:rotate(180deg)" (click)="docsback()"> </div>
+      <div style="width:100%;border-bottom-style: ridge;line-height: 27px;"><label
+          style="color:black;font-size:15px;">Back</label></div>
+    </div>
+    <div style="background: white;overflow-x: auto;">
+
+      <div *ngFor="let i of mediafileDocs">
+        <div style="height:45px;width:100%;padding:10px;border-bottom-style: ridge;display:inline-table">
+          <div style="width:20%;float: left;"></div>
+
+          <a *ngIf="i.filetype!=''"  (click)="opendocs(i.filename)">
+            <!-- <div style="width:70%;float:left;margin-left:10px;" (click)="opendocs(i.filename)" >  -->
+            <div style="width:70%;float:left;margin-left:10px;">
+
+              <div style="width:25px;float:left;">
+
+                <div [ngClass]="(i.filetype=='pdf')&& 'sprite24 sprite-pdf24' "></div>
+                <div
+                  [ngClass]="((i.filetype=='xls')||(i.filetype=='xlsx')|| (i.filetype=='ods'))&& 'sprite24 sprite-xlsx24' ">
+                </div>
+                <div [ngClass]="((i.filetype=='doc')||(i.filetype=='docx'))&& 'sprite24 sprite-doc24' "></div>
+                <img class="chat_img"
+                  *ngIf="((i.filetype=='png')||(i.filetype=='gif')||(i.filetype=='jpg')||(i.filetype=='jpeg'))"
+                  src="{{apifileurl}}{{i.filename}}" />
+
+              </div>
+              <div style="float:left;margin-left:5px;"><label>{{i.filename | limitChars:25 }}</label></div>
+              <br />
+              <label style="color:#208cef;font-size: 10px;margin-left:5px;"> {{ i.time | mediapipe}} </label>
+            </div>
+          </a>
+          <!-- <div style="width:70%;float:left;"> <label style="color:black; font-size:15px;">{{i.filename}} </label><br/>     
+                 <label style="color:#208cef;font-size: 10px;"> {{ i.time }} </label>        </div> -->
+
+          <div style="width:25%;float:left;display:none">
+            <div style="width:16%;float:left;"><img src="assets/imgs/Gomo_Msg_icon/share_blk_icon.png"></div>
+            <div style="width:22%;float:left;margin-left:10px;"> <img src="assets/imgs/Gomo_Msg_icon/dwn_blk_icon.png">
+            </div>
+            <div style="width:15%;float:left;margin-left:10px;"><img src="assets/imgs/Gomo_Msg_icon/del_blk_icon.png">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="let i of mediafileImages">
+        <div style="height:55px;width:100%;padding:10px;border-bottom-style: ridge;display:inline-table">
+          <div style="width:20%;float: left;"></div>
+
+          <div style="float:left;margin-left:10px;">
+            <div style="width:75px;float:left;">
+              <!-- <a  *ngIf="i.filetype!='' " href="{{apifileurl}}{{i.filename}}" > -->
+              <a *ngIf="i.filetype!='' ">
+
+                <div [ngClass]="(i.filetype=='pdf')&& 'sprite24 sprite-pdf24' "></div>
+                <div
+                  [ngClass]="((i.filetype=='xls')||(i.filetype=='xlsx')|| (i.filetype=='ods'))&& 'sprite24 sprite-xlsx24' ">
+                </div>
+                <div [ngClass]="((i.filetype=='doc')||(i.filetype=='docx'))&& 'sprite24 sprite-doc24' "></div>
+                <img *ngIf="((i.filetype=='png')||(i.filetype=='gif')||(i.filetype=='jpg')||(i.filetype=='jpeg'))"
+                  src="{{apifileurl}}{{i.filename}}" style="height:4.5rem;margin-top:0px;" (click)="opengallery(i)" />
+              </a></div>
+            <div style="float:left;margin-left:5px;"><label>{{i.filename | limitChars:25 }}</label></div>
+            <br />
+            <label style="color:#208cef;font-size: 10px;margin-left:5px;"> {{ i.time | mediapipe}} </label>
+          </div>
+          <!-- <div style="width:70%;float:left;"> <label style="color:black; font-size:15px;">{{i.filename}} </label><br/>     
+                      <label style="color:#208cef;font-size: 10px;"> {{ i.time }} </label>        </div> -->
+
+          <div style="width:25%;float:left;display:none">
+            <div style="width:16%;float:left;"><img src="assets/imgs/Gomo_Msg_icon/share_blk_icon.png"></div>
+            <div style="width:22%;float:left;margin-left:10px;"> <img src="assets/imgs/Gomo_Msg_icon/dwn_blk_icon.png">
+            </div>
+            <div style="width:15%;float:left;margin-left:10px;"><img src="assets/imgs/Gomo_Msg_icon/del_blk_icon.png">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div style="background: white;text-align:center;" *ngIf="MessengerDocsdata?.length==0">
+      <div style="display:none"> <img src="assets/imgs/Gomo_Msg_icon/add_doc_btn.png" style="width:200px;"></div>
+      <ion-label style="font-size:1.6rem;color:black">No data found</ion-label>
+    </div>
+
+    <!-- <div style="background: white;text-align:center;" *ngIf="mediafileDocs?.length==0" && *ngIf="mediafileImages?.length==0">
+                <div style="display:none"> <img src="assets/imgs/Gomo_Msg_icon/add_doc_btn.png" style="width:200px;"></div>
+                <ion-label style="font-size:1.6rem;color:black">No data found</ion-label>
+             </div> -->
+
+  </div>
+
+
+  <!--  Docs div closed -->
+
+
+
+  <!-- Media div starting  mediafileImages-->
+
+  <div *ngIf="mediadiv != false" style="background: white;">
+
+    <div style="width:100%; background: white;">
+      <div style="width:8%;float:left;margin-top:4px;margin-left:10px;"> <img src="assets/imgs/Right_arrow.png"
+          style="width:20px;height:15px;transform:rotate(180deg)" (click)="aboutback()"> </div>
+      <div style="width:100%;border-bottom-style: ridge;line-height: 27px;"><label
+          style="color:black;font-size:15px;">Back</label></div>
+    </div>
+
+    <div style="height:300px;background: white;overflow-x: auto;">
+      <!-- <div *ngFor = "let i of mediafileImages">
+                  <div style="height:55px;width:100%;padding-top:10px;border-bottom-style: ridge;">
+                      <div style="width:20%;float: left;"></div>
+                      
+                      <div style="float:left;margin-left:10px;"> 
+                        <div style="width:75px;float:left;">         
+                          <a  *ngIf="i.filetype!='' ">                    
+                        <div [ngClass]="(i.filetype=='pdf')&& 'sprite24 sprite-pdf24' "></div>
+                        <div [ngClass]="((i.filetype=='xls')||(i.filetype=='xlsx')|| (i.filetype=='ods'))&& 'sprite24 sprite-xlsx24' "></div>
+                        <div [ngClass]="((i.filetype=='doc')||(i.filetype=='docx'))&& 'sprite24 sprite-doc24' "></div>
+                        <img  *ngIf="((i.filetype=='png')||(i.filetype=='gif')||(i.filetype=='jpg')||(i.filetype=='jpeg'))" 
+                        src="{{apifileurl}}{{i.filename}}" style="width:70px;height:30px;margin-top:0px;" (click)="opengallery()"  />
+                      </a></div> <div style="float:left;margin-left:5px;"><label>{{i.filename | limitChars:25 }}</label></div>
+                      <br/>
+                      <label style="color:#208cef;font-size: 10px;margin-left:5px;"> {{ i.time | mediapipe}} </label>        </div>   
+                  
+                  
+                       <div style="width:25%;float:left;display:none">
+                          <div style="width:16%;float:left;"><img src="assets/imgs/Gomo_Msg_icon/share_blk_icon.png"></div>
+                         <div style="width:22%;float:left;margin-left:10px;"> <img src="assets/imgs/Gomo_Msg_icon/dwn_blk_icon.png"></div>
+                          <div style="width:15%;float:left;margin-left:10px;"><img src="assets/imgs/Gomo_Msg_icon/del_blk_icon.png"></div>
+                       </div>
+                    </div>
+                </div> -->
+    </div>
+
+    <div style="background: white;text-align:center;" *ngIf="mediafileImages?.length==0">
+      <div style="display: none"> <img src="assets/imgs/Gomo_Msg_icon/add_doc_btn.png" style="width:150px;"></div>
+      <ion-label style="font-size:1.6rem;color:black">No data found</ion-label>
+    </div>
+  </div>
+
+
+  <!--  Media div closed -->
+
+  <!--  Media div closed -->
+
+  <!--Showing no arrows for singleimage-->
+  <div *ngIf="imgview != false">
+    <div style="width:8%;float:left;margin-top:4px;margin-left:10px;"> <img src="assets/imgs/Right_arrow.png"
+        style="width:20px;height:15px;transform:rotate(180deg)" (click)="Media()"> </div>
+    <div style="width:100%;border-bottom-style: ridge;line-height: 27px;"><label
+        style="color:black;font-size:15px;">Back</label></div>
+
+    <div style="height:100%; width:20%; float:left;" *ngIf="mediafileImages.length>1">
+      <div style="margin-left:23px;margin-top:125px;">
+        <img src="assets/imgs/Right_arrow.png" *ngIf="pre != -1" style="transform: rotate(180deg); height: 20px;"
+          (click)="prevslide()" />
+      </div>
+    </div>
+    <div class="item" [className]="mediafileImages.length>1?'count2':'count1'">
+      <ion-slides pager="false" #slides>
+        <ion-slide *ngFor=" let s of mediafileImages">
+          <img src="{{apifileurl}}{{s.filename}}" />
+        </ion-slide>
+      </ion-slides>
+    </div>
+    <div style="height: 100%;width:20%;float:left;" *ngIf="mediafileImages.length>1">
+      <div style="margin-left:24px;margin-top:127px;">
+        <img src="assets/imgs/Right_arrow.png" style="height: 20px;" (click)="nextslide()" *ngIf="hide_rightarrow==false " />
+      </div>
+    </div>
+    <!-- <a class="item item-list-detail">
+              <img src="{{apifileurl}}{{s.filename}}" />
+                <ion-scroll direction="x">
+                  <img *ngFor=" let s of mediafileImages" src="{{apifileurl}}{{s.filename}}" (click)="showImages($index)" class="image-list-thumb"/>
+                </ion-scroll>
+              </a> -->
+  </div>
+
+
+  <div *ngIf= "docsview != false">
+    <div style="width:8%;float:left;margin-top:4px;margin-left:10px;"> <img src= "assets/imgs/Right_arrow.png" style="width:20px;height:15px;transform:rotate(180deg)" (click) ="Media()" > </div>
+	 <div style="width:100%;border-bottom-style: ridge;line-height: 27px;"><label style="color:black;font-size:15px;">Back</label></div>
+    <div style="width:100%; height:100%;">
+  <iframe  width="100%"  height="600"  [src] = "docfilename"    style="border:none;"></iframe>
+</div>
+</div>
+
+</ion-content>
+
+
+
+<ion-footer>
+
+</ion-footer>

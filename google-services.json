@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "504296469628",
+    "firebase_url": "https://gomo-215416.firebaseio.com",
+    "project_id": "gomo-215416",
+    "storage_bucket": "gomo-215416.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504296469628:android:6d8bc76b73bba9cc",
+        "android_client_info": {
+          "package_name": "com.pllc.usegomo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504296469628-8are02aub1fud79vu56ramjahed65pl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiBAZRkHsXXULjmIm0ugoyN0Yj7LpnGKE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

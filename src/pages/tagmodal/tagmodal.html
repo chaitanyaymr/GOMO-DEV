@@ -1,0 +1,45 @@
+
+<ion-card>
+    <ion-card-header class="cardheader">
+        <ion-label class="cardtitle"> 
+          <img style="width: 10%;float: left;margin-right: 3%;" src="assets/icon/Gomo_Msg_icon/tag_blk_icon.png"/> <span style="margin-left: 4%;"> Tags </span>    
+  
+          
+        </ion-label>
+        <img src= "assets/icon/Gomo_Msg_icon/close_icon_new.png" style="width:5%;float:right" (click)="closeModal()"/>
+        <!-- <ion-label class="cardlable" end (click)="closeModal()">
+            Close
+           </ion-label> -->
+        
+    </ion-card-header>
+  
+    <ion-card-content padding>
+        <div class="btngroup"> 
+  
+            <button icon-start="" ion-button="" class="tagcolor" *ngFor="let tg of convData, let x= index">
+              <span class="button-inner">        
+                {{tg.tagTile}}  
+              </span>
+              <span  (click)="removeTags(tg)" *ngIf="x>0" ><ion-icon ios="ios-close" md="md-close" style="width: 10px" item-right></ion-icon></span>
+              <!-- <span (click)="removeTag(x)">
+                  <ion-icon name="close" role="img" class="icon icon-ios ion-ios-close rmtag" aria-label="close" ></ion-icon>
+              </span>         -->
+              <div class="button-effect"></div>
+            </button>
+      
+           
+          </div>
+      
+      
+          <div class="tagbd">
+      
+              <ion-input type="text" placeholder="Enter New Tag" [(ngModel)]="intag" (keyup)=showTag(intag)></ion-input>
+              
+             <div style="padding-top:3rem;" (click)="presentPrompt(intag)" class="btnblock" icon-start="" >
+                 <a><ion-icon ios="ios-add-circle" md="md-add-circle" ><span style="text-decoration: underline;"> Add Tag</span></ion-icon></a>    
+             </div>
+              
+          </div>
+    </ion-card-content>
+  </ion-card>
+  

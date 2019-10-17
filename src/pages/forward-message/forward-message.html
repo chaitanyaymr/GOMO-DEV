@@ -1,0 +1,115 @@
+
+<!-- <ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Messages</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()">Close</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header> -->
+
+<ion-card>
+    <ion-card-header class="cardheader">
+      <ion-grid no-padding> 
+        <ion-row style="margin: 1%;">
+          <!-- <ion-col col-1 style="text-align: center">
+             <ion-icon *ngIf="saveGroup == 'Y'" (click)="groupbackbtn()" ios="ios-arrow-back" md="md-arrow-back" ></ion-icon> 
+            <ion-icon *ngIf="saveGroup == 'N'" ios="ios-photos" md="md-photos" ></ion-icon>  
+          </ion-col> -->
+          <ion-col col-10>
+             <ion-label style="margin:0px;"> {{mheader}}  </ion-label>
+          </ion-col>
+          <ion-col col-2>
+              <!-- <ion-label style="margin:0px;float:right" (click)="closeModal('N',selectedUsers)">  Close   </ion-label> -->
+
+              <img src= "assets/icon/Gomo_Msg_icon/close_icon_new.png" style="width:23%;float:right" (click)="closeModal('N',selectedUsers)"/>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+       
+      
+        
+    </ion-card-header>
+  
+    <ion-card-content padding>
+  
+        <ion-list *ngIf="saveGroup == 'N'"> 
+        <ion-searchbar style="width: 95%;margin-left: 3%;" [(ngModel)]="searchTerm" ></ion-searchbar>  
+      
+        <ion-scroll scrolly="true"> 
+        <ion-item *ngFor="let x of convData | searchfilter :  {str : searchTerm, str2 : 'nonconv'}">     
+            <ion-checkbox class="concheckbox" item-left (click)="selectMember(x)" [(ngModel)]="x.checked"></ion-checkbox>
+            <ion-avatar slot="start" class="md hydrated" item-left>
+                <div class="conactive" *ngIf="x.converationStatus == 'Online'"></div> 
+                
+                <img *ngIf="x.groupType.trim()=='I'" src="https://devapi.usegomo.com/Images/Membersusers/{{x.converationImage}}" onError="this.src='assets/icon/DeafaultUserImg.png'" />
+                <img *ngIf="x.groupType.trim()=='G'" src="https://devapi.usegomo.com/Images/GroupIcons/{{x.converationImage}}"  onError="this.src='assets/icon/gpeople.png'"/>
+                <img *ngIf="x.groupType.trim()=='B'" src="https://devapi.usegomo.com/Images/GroupIcons/{{x.converationImage}}"  onError="this.src='assets/icon/gpeople.png'"/>
+                <img *ngIf="x.groupType.trim()==''" src="https://devapi.usegomo.com/Images/Membersusers/{{x.converationImage}}" onError="this.src='assets/icon/DeafaultUserImg.png'" />
+               
+            </ion-avatar>   
+            <ion-label slot="end" item-content class="contitle">
+             {{x.converationName}}
+              <p class="consubtitle">{{x.converationDesignation}}</p>
+            </ion-label>
+        </ion-item>      
+        </ion-scroll>
+  
+      </ion-list>    
+
+  
+      <div *ngIf="saveGroup == 'Y'"> 
+        <div class="imgblock" (click)="ShowCameraPopup()">
+            <ion-avatar item-start="" class="imgstyle">
+                <img  onerror="this.src='https://devapi.usegomo.com/Images/Membersusers/people.png'" src="https://devapi.usegomo.com/Images/Membersusers/people.png">
+              </ion-avatar>
+              <ion-icon ios="ios-camera" md="md-camera" class="camicon"></ion-icon>
+        </div>
+  
+        <div class="btnblock">
+            <button ion-button small [color]="actionbtn == 'N' ? 'secondary' : 'disabledgrey'"  (click)="changegrouptype('private')" outline>Private</button>
+            <button ion-button small [color]="actionbtn == 'Y' ? 'secondary' : 'disabledgrey'"  (click)="changegrouptype('public')" outline>Public</button>
+        </div>
+          
+        <div style="clear:both"></div>
+  
+        <div class="inputblock">
+          <ion-input class="groupnameclass" type="text" [(ngModel)]="groupName" placeholder="Enter Group Name" (ionChange)="noSpace($event)"></ion-input>
+        </div>
+  
+        <ion-scroll *ngIf="selectedUsers.length > 0" scrollX="true" style="height: -webkit-calc(70px);height: calc(70px);background-color: white;">
+          <ion-row *ngIf="selectedUsers" style="overflow-x: scroll !important;background-color: white;" [ngClass]="[selectedUsers.length > 0 ? 'maxuser' : 'minuser']">
+          <div *ngFor="let y of selectedUsers, let i=index"  style="float:left;"> 
+          <span class="removeuser" (click)="removeuser(y)"><img src= "assets/icon/Gomo_Msg_icon/close_W_B.gif" style="width:8px;height:8px;margin-top:2%;float:left"/></span>
+          <ion-item class="usersblock">             
+            <ion-avatar item-start="">                          
+                <img style="border: 1px solid lightgray" *ngIf="y.groupType.trim()=='I'" src="https://devapi.usegomo.com/Images/Membersusers/{{y.converationImage}}" onError="this.src='assets/icon/DeafaultUserImg.png'" />
+                <img style="border: 1px solid lightgray" *ngIf="y.groupType.trim()=='G'" src="https://devapi.usegomo.com/Images/GroupIcons/{{y.converationImage}}"   onError="this.src='assets/icon/gpeople.png'"/>
+                <img style="border: 1px solid lightgray" *ngIf="y.groupType.trim()=='B'" src="https://devapi.usegomo.com/Images/GroupIcons/{{y.converationImage}}"  onError="this.src='assets/icon/gpeople.png'"/>
+                <img style="border: 1px solid lightgray" *ngIf="y.groupType.trim()==''" src="https://devapi.usegomo.com/Images/Membersusers/{{y.converationImage}}"  onError="this.src='assets/icon/DeafaultUserImg.png'"/>
+             
+            </ion-avatar>           
+        </ion-item>      
+      </div>
+    </ion-row>
+    </ion-scroll>
+        <div style="clear:both"></div>
+      </div>
+  
+      </ion-card-content>
+      <div class="footer">
+          <div class="btn-wrapper" *ngIf="selectedUsers.length > 0">    
+              <img *ngIf="saveGroup == 'N' && mfooter == 'Forward' &&  selectedUsers.length > 0" style="width:40%;padding:2%;margin-left:29%;" (click)="saveGroupList(selectedUsers)"  src="assets/icon/Gomo_Msg_icon/fwd_btn.png">
+              <button *ngIf="saveGroup == 'N' && mfooter != 'Forward'" ion-button small (click)="saveGroupList(selectedUsers)" [disabled]="isenabled">{{mfooter}}</button>
+              <button *ngIf="saveGroup == 'Y' && groupName != ''" ion-button small  (click)="saveList(selectedUsers)" [disabled]="isenabled">Save</button>
+            </div>
+      </div>
+     
+    </ion-card>
+  
+  
+  
+  

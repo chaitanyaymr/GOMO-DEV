@@ -1,0 +1,43 @@
+page-login {
+
+    .scroll-content{
+        background: url('../assets/icon/login_bg.png') no-repeat !important; 
+        -webkit-background-size: cover !important;
+        -moz-background-size: cover !important;
+        background-size: cover !important;
+    }
+
+    .Sign_in{
+        width: 55vw;
+        font-size: 16px;
+        height: 35px;
+        border-radius: 2px;
+        background: #208cef;
+        color: white;
+        letter-spacing: 0.5px;
+    }
+    .Login_input{
+        text-align: center;
+        width: 55vw;
+        // font-size: 16px;
+        height: 35px;
+        border-radius: 2px;
+        border: none;
+        color: black;
+        font-weight:normal;
+    }
+    .checkbox-md .checkbox-icon{
+        border:none;
+        width: 14px;
+        height: 14px;
+    }
+    .checkbox-md .checkbox-checked .checkbox-inner{
+        top: 1.6px;
+        left: 5px;
+        width: 5px;
+        height: 9px;
+    }
+
+
+
+}

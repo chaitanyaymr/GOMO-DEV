@@ -1,0 +1,36 @@
+page-userprofile {
+    [text-color="my-custom-color"] {
+        color: white;
+    }
+
+    .profile_input{
+        text-align: center;
+        width: 75vw;
+        // font-size: 16px;
+        height: 35px;
+        border-radius: 2px;
+      //  border: none;
+        color: black;
+        font-weight:normal;
+    }
+    .lbl{
+        background:#eef3f6  !important;
+        padding:10px;border:0.5px solid !important;
+        margin:0px !important;
+        color:#272727 !important;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        
+    }
+
+    .txt{
+        background:white !important;
+        border:0.5px solid !important;
+        padding:10px !important;
+        border-left:unset !important;
+        text-align:left !important;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+}

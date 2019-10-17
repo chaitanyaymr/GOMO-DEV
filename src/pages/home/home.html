@@ -1,14 +1,155 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<!--
+  Generated template for the HomePage page.
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
-</ion-content>
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header >
+    <ion-navbar hideBackButton>
+      <gomo-header></gomo-header>
+    </ion-navbar>
+      <ion-row *ngIf="convtype == 1" style="background: #eef3f6 ">
+        <ion-col col-10>
+            <img src= "assets/imgs/Right_arrow.png" style="width:20px;height:20px;margin-top:1%;float:left" (click)="openAccordion()" />
+            <ion-searchbar  [(ngModel)]="searchtxt" style="width:90%;float:left"></ion-searchbar> 
+        </ion-col>
+        <ion-col style="text-align: center" col-2>
+            <img   src="assets/imgs/HeaderIcons/sorting_icon.png" (click)="this.showPopover=!this.showPopover" style="margin-top:7px;width:15px;">
+           
+                          <!-- <ion-select interface="popover" class="minipopup"  item-end>
+                    <ion-option value="A" (ionSelect)="clicksort('A')">A to Z</ion-option>
+                    <ion-option value="D" (ionSelect)="clicksort('D')">Z to A</ion-option>
+                    <ion-option value="EARNED LEAVE" (ionSelect)="clicksort('MLR')">Most to last recent</ion-option>
+                    <ion-option value="SICK LEAVE" (ionSelect)="clicksort('LMR')">Last to most recent</ion-option>
+                  </ion-select>                  -->
+             
+        </ion-col>
+      </ion-row>
+      <div style="height: 1000%;width: 100%;position: absolute;" [ngClass]="{hide: !showPopover}">
+          <ul id="menu" class="popover_class" style="z-index:9999999">
+            <ul class="submenu">
+              <div class="arrow_box_down_Status">
+                <li  (click)="clicksort('A')"  style="padding:10px;" [ngClass]=" (sortvar=='A') && 'sortActive' || 'sortInactive'"> <label>A to Z </label></li>
+                <li  (click)="clicksort('D')" style="padding:10px;" [ngClass]=" (sortvar=='D') && 'sortActive' || 'sortInactive'"> <label>Z to A </label></li>
+                <li  (click)="clicksort('MLR')" style="padding:10px;" [ngClass]=" (sortvar=='MLR') && 'sortActive' || 'sortInactive'"> <label>Most To Least Recent</label></li>
+                <li  (click)="clicksort('LMR')" style="padding:10px;" [ngClass]=" (sortvar=='LMR') && 'sortActive' || 'sortInactive'"> <label>Least To Most Recent</label></li>
+                       </div>
+            </ul>
+          </ul>
+        </div>
+        <div style="height: 1000%;width: 100%;position: absolute;top:-100%;z-index: 99999;" [ngClass]="{hide: !showPopover}"  (click)="this.showPopover=!this.showPopover;"></div>
+        <!-- <ion-row class="fixediconbar" *ngIf="convtype == 1">
+          <ion-col>
+              <img src= "assets/imgs/Right_arrow.png" style="width:20px;height:20px;margin-top:3px;float:left" (click)="openAccordion()" />
+              <ion-label ion-left class="msgblock" *ngIf="convlist?.length>0">
+                  {{convlistcount}} conversations
+              </ion-label>
+              <span ion-right class="iconblock">
+               
+                <img width="20px" src="assets/imgs/broadcast_icon.png" (click)="getBroadcast()">
+                <img width="17px" src="assets/imgs/new_msg_icon.png" (click)="getnewlist()">
+                <img width="17px" *ngIf="sortstatus == 'A' || sortstatus == ''" src="assets/imgs/sorting_icon.png" (click)="clicksort(sortstatus)">
+                <img width="17px" *ngIf="sortstatus == 'D'" src="assets/imgs/desc2.png" (click)="clicksort(sortstatus)">
+              </span>
+          </ion-col>    
+        </ion-row> -->
+
+
+        <ion-row class="fixediconbar" *ngIf="convtype == 2">
+          <ion-col>
+              <ion-label ion-left class="msgblock">
+                <span (click)="backtoconv()"><ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>&nbsp;Contacts</span>
+              </ion-label>
+              <span ion-right class="iconblock">
+                <span class="groupbtn" (click)="createNewGroup()"><ion-icon ios="ios-add" md="md-add"></ion-icon><ion-icon ios="ios-contacts" md="md-contacts"></ion-icon></span>
+              </span>
+          </ion-col> 
+        </ion-row>
+    <!-- </div> -->
+   
+  </ion-header>
+  <ion-content>
+  
+    
+    <ion-row>
+      <ion-col style="width:100%;padding:0px">
+           
+        <ion-list *ngIf="convtype == 1">
+          <ion-card  style="border-bottom: solid 0.2px !important;height:7.5rem !important"  *ngFor="let i of convlist | searchfilter : {str : searchtxt, str2 : 'conv'};let x = index ">
+            <ion-item-sliding  #listconv style="height:100%">
+              
+            <ion-item  (click)="gotoconv(i,1)" class="conclass"  >
+               
+                    <img src="assets/icon/Gomo_Msg_icon/star_icon.png" *ngIf="i.isFavorite=='Y' "  style="width:14px;position:absolute;left:2%;top:10%;"/>
+                
+                <ion-avatar item-start>
+                    <ion-badge  color="danger" [className]="i.convoUnreadMsgCount>9?'count2':'count1'"  *ngIf="i.convoUnreadMsgCount>0 ">{{i.convoUnreadMsgCount}}</ion-badge>
+                  <img style="float:left" *ngIf="i.groupType.trim()=='I'" src="https://devapi.usegomo.com/Images/Membersusers/{{i.convoImage}}" onError="this.src='assets/icon/DeafaultUserImg.png'" />
+                  <img style="float:left" *ngIf="i.groupType.trim()=='G'" src="https://devapi.usegomo.com/Images/GroupIcons/{{i.convoImage}}" onError="this.src='assets/icon/gpeople.png'"/>
+                  <img style="float:left" *ngIf="i.groupType.trim()=='B'" src="assets/icon/gpeople.png"/>
+                  <img style="float:left" *ngIf="i.groupType.trim()==''" src="assets/icon/DeafaultUserImg.png"/>
+                 <!-- image-lazy-src="{{item.thumbnail}}" image-lazy-background-image="true" image-lazy-loader="lines" image-lazy-distance-from-bottom-to-load="100" -->
+                </ion-avatar>
+                <div class="contentdiv">
+                    <h2 style="font-family:'Roboto-Bold';font-weight:700" >{{i.convoName | limitChars:18}}</h2> 
+                    <p *ngIf="i.tagTitle!=''" style="color:black;font-family:'Roboto-Regular'">
+                        <span class="fa fa-tag" style="transform: rotate(90deg);font-size: 10px;color: #6c757d;margin-right: 5px;"></span>
+                        <span [ngStyle]="{'color':i.tagCCode}" style="font-size:1.2rem;font-weight:bold;">{{i.tagTitle.toUpperCase() | limitChars:16}}</span>
+                        <span [ngStyle]="{'background-color':i.tagCCode}" style="font-size:1.2rem;color:#000;padding:2px;border-radius:10px;" *ngIf="i.tagCount>0">+{{i.tagCount}}</span>
+                    </p>
+                    <p *ngIf="i.convoLastEnryMSGStatus.trim()=='Y' && i.convoLastMsg.trim()!='' && i.typing==false " style="color:black;font-family:'Roboto-Regular'">{{i.convoLastMsg | limitChars:16}}</p>
+                    <p *ngIf="i.convoLastEnryMSGStatus.trim()=='Y' && i.convoLastMsg.trim()==''
+                        && i.convoLastFile!='' && i.typing==false " style="color:black;font-family:'Roboto-Regular'">{{i.convoLastFile | limitChars:16}}</p>
+                    <p *ngIf="i.convoLastEnryMSGStatus.trim()=='N'  && i.typing==false  " style="color:black;font-family:'Roboto-Regular'"> You deleted this message </p>
+                    <p style="color:green;font-weight:bold;font-family:'Roboto-Regular'" *ngIf="i.typing==true ">typing...</p>
+                  </div>
+                
+              </ion-item>
+              <ion-item  class="optionclass" >
+                     
+                  <span item-end class="timezone" *ngIf="i.groupType.trim()=='B'" style="top:5px !important;color:#666666">{{i.convoLastEnryTime | homedtfilter}} </span>
+                  <span item-end class="timezone" *ngIf="i.groupType.trim()!='B'" style="color:#666">{{i.convoLastEnryTime | homedtfilter}} </span>
+                
+                  <ion-select interface="popover" class="minipopup" width="150px"  item-end style="padding-top:10px;" *ngIf="i.groupType.trim()!='B'">
+                      <ion-option value="1" (ionSelect)="popoverClick(i,1,listconv)" *ngIf="i.convoLastEnryReadStatus.trim().toUpperCase()!='A'">Archive Chat</ion-option>
+                      <ion-option value="8" *ngIf="i.convoLastEnryReadStatus.trim().toUpperCase()=='A'" (ionSelect)="popoverClick(i,8,listconv)">Unarchive</ion-option>
+
+                      <ion-option value="2" (ionSelect)="popoverClick(i,2,listconv)" *ngIf="i.isFavorite=='N' && i.convoLastEnryReadStatus.trim().toUpperCase()!='A' " >Favorite</ion-option>
+                      <ion-option value="3" (ionSelect)="popoverClick(i,3,listconv)" *ngIf="i.isFavorite=='Y' && i.convoLastEnryReadStatus.trim().toUpperCase()!='A'">Unfavorite</ion-option>
+
+                      <ion-option value="4" (ionSelect)="popoverClick(i,4,listconv)" *ngIf="i.convoNotifyStatus!='N' && i.convoLastEnryReadStatus.trim().toUpperCase()!='A'">Mute</ion-option>
+                      <ion-option value="5" (ionSelect)="popoverClick(i,5,listconv)" *ngIf="i.convoNotifyStatus=='N' && i.convoLastEnryReadStatus.trim().toUpperCase()!='A'">Cancel Mute</ion-option>
+
+                      <ion-option value="6" (ionSelect)="popoverClick(i,6,listconv)" *ngIf="i.convoLastEnryReadStatus.trim().toUpperCase()!='A'" >Delete Chat</ion-option>
+                      <ion-option value="7" (ionSelect)="popoverClick(i,7,listconv)"  *ngIf="i.convoLastEnryReadStatus.trim().toUpperCase()!='A' && i.convoUnreadMsgCount==0 " >Mark as Unread</ion-option>
+                      <ion-option value="9" (ionSelect)="popoverClick(i,9,listconv)"  *ngIf="i.convoLastEnryReadStatus.trim().toUpperCase()!='A' && i.convoUnreadMsgCount>0 " >Mark as Read</ion-option>
+                    </ion-select>
+                    <div  item-end class="muteicon">
+                        <img src="assets/icon/Gomo_Msg_icon/mute.png" *ngIf="i.convoNotifyStatus=='N'" >
+                      </div>
+              </ion-item>
+              <ion-item-options side="right">
+                  <button *ngIf="i.convoLastEnryReadStatus.trim().toUpperCase()!='A'"  ion-button (click)="archiveconv(listconv,i.convoId)">Archive</button>  
+                  <button  *ngIf="i.convoLastEnryReadStatus.trim().toUpperCase()=='A'" ion-button (click)="unArchiveConvslide(listconv,i.convoId)">Un Archive</button>
+                  <button ion-button color="danger" (click)="delconv(listconv,i.convoId)">Delete</button>
+                </ion-item-options>
+            </ion-item-sliding>
+           
+            </ion-card>
+           
+        </ion-list>
+        <ion-label style="text-align:center;font-size:1.6rem;font-weight:bold;color:black" *ngIf="lblArch!=''">{{lblArch}}</ion-label>
+  
+     
+  </ion-col>
+    </ion-row>
+    <ion-row *ngIf="gomoenv.isall_convlist==false">
+      <ion-col style="text-align:center;" *ngIf="lblArch==''">
+                <button ion-button color="medium" expand="block" style="margin:auto;" (click)="loadallchats()">Load All Chats</button>
+      </ion-col>
+    </ion-row>
+  </ion-content>
+  <ion-footer>
+    <gomofooter></gomofooter>
+  </ion-footer>
+  

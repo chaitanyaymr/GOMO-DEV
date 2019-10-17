@@ -1,0 +1,427 @@
+<!--
+  Generated template for the ConversationsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar hideBackButton>
+   <ion-row style="background:white;">
+    <ion-col style="padding:10px 0px 0px 0px !important" (click)="backtoHome()" col-1>
+       <img src= "assets/imgs/Right_arrow.png" style="width:20px;height:20px;transform:rotate(180deg);margin-top:15px;margin-left:10px;" />
+    </ion-col>
+    <ion-col style="padding:10px 0px 0px 0px !important" col-7>
+ 
+        <ion-list style="margin:0px!important"  (click)="openAboutPage('A')">
+          <ion-item no-lines style="padding-left:5px;background:transparent !important">
+            <ion-avatar item-start style="margin:8px 0px 8px 0px !important">
+              <img src="{{usericonurl}}{{convuser.img}}"  onError="this.src='assets/icon/DeafaultUserImg.png'" style="height:35px;width:35px" *ngIf="convuser.convtype.toUpperCase()=='I' || convuser.convtype.trim()==''">
+              <img src="{{groupiconsurl}}{{convuser.img}}"  onError="this.src='https://devapi.usegomo.com/Images/Membersusers/people.png'" style="height:35px;width:35px" *ngIf="convuser.convtype.toUpperCase()!='I' && convuser.convtype.trim()!=''">
+           </ion-avatar>
+           <h2 style="font-weight:bold;">{{convuser.name | limitChars:12 }}</h2>
+           <p>
+            <span style="color:black !important;margin:0px !important;text-transform: capitalize;" *ngIf="typing==false">{{convuser.status | limitChars:8 }}</span>
+            <span style="color:green;font-weight:bold;" *ngIf="typing==true">typing...</span>
+           </p>
+          </ion-item>
+        </ion-list>
+ 
+    </ion-col>
+      <ion-col style="padding:10px 0px 0px 0px !important" col-4>
+        <div style="float:right;margin-top: 15px;margin-right: 25px;" >
+          <img  src="assets/icon/Gomo_Msg_icon/new_msg_icon.png" style="width:20px;margin:3px;" (click)="createNewConv()"/>
+      </div>
+      
+        <div style="float:left;margin-top: 15px;" >
+          <img  src="assets/icon/Gomo_Msg_icon/broadcast_icon.png" style="width:25px;" (click)="getBroadcast()"/>
+        </div>
+      </ion-col>
+      
+   </ion-row>
+
+  </ion-navbar>
+  <ion-row style="background:#eef3f6;" *ngIf="convType.trim().toUpperCase()!='B'">
+    <ion-col style="padding:5px 0px 0px 0px !important" col-3>
+
+    </ion-col>
+    
+    <ion-col style="padding:5px 0px 0px 0px !important" col-2>
+      <div style="float:left;padding:10px;">
+       
+        <img src="assets/icon/Gomo_Msg_icon/star_off_icon.png"  *ngIf="starredConv.toLowerCase()=='n' && convuser.convid!=0 "   (click)="makeFavAndUnfav('Y')" />
+        <img src="assets/icon/Gomo_Msg_icon/star_icon.png" *ngIf="starredConv.toLowerCase()=='y'  && convuser.convid!=0"    (click)="makeFavAndUnfav('N')" />
+      </div>
+
+    </ion-col>
+    <ion-col style="padding:5px 0px 0px 0px !important" col-2>
+      <div style="float:left;padding:10px;" (click)="openTagsModal()" *ngIf="convuser.convid!=0">
+        <img src="assets/icon/Gomo_Msg_icon/tag_blk_icon.png"/>
+        <ion-badge   color="danger" class="mybadgeclass2" *ngIf="tags_count!=0" style="margin-left:-10px;" >{{tags_count}}</ion-badge>
+      </div>
+
+    </ion-col>
+    <ion-col style="padding:5px 0px 0px 0px !important;display:flex;align-items: center;justify-content: center" col-3>
+      <div style="float:left;padding:10px" (click)="openAboutPage('D')" >
+        <img src="assets/icon/Gomo_Msg_icon/attach-icon.png" />
+        <ion-badge   color="danger" class="mybadgeclass2" *ngIf="att_count!=0" style="margin-left:-10px;">{{att_count}}</ion-badge>
+      </div>
+
+    </ion-col>
+    <ion-col style="padding:5px 0px 0px 0px !important;display: flex;align-content: center;justify-content: center;" col-2>
+      <div style="margin-top: 1.5rem;">
+        <img src="assets/icon/Gomo_Msg_icon/dwnarrw_grey.png" (click)="this.showPopover=!this.showPopover"/>
+     </div>
+
+    </ion-col>
+  </ion-row>
+  <div style="height: 1000%;width: 100%;position: absolute;" [ngClass]="{hide: !showPopover}"  *ngIf="convType.trim().toUpperCase()!='B'">
+    <ul id="menu" class="popover_class" style="z-index:9999999">
+      <ul class="submenu">
+        <div class="arrow_box_down_Status">
+          <li  (click)="changeddlUserOptions('info')"  style="padding:10px;" *ngIf="convuser.convtype.toUpperCase()=='I' || convuser.convtype.trim()==''"> <label>Contact info </label></li>
+          <li  (click)="changeddlUserOptions('info')"  style="padding:10px;" *ngIf="convuser.convtype.toUpperCase()!='I' && convuser.convtype.trim()!=''"> <label>Group info </label></li>
+          <li  (click)="changeddlUserOptions('mute')" style="padding:10px;" *ngIf="isMute==false && convuser.convid!=0"> <label>Mute </label></li>
+          <li  (click)="changeddlUserOptions('cancelmute')" style="padding:10px;" *ngIf="isMute==true && convuser.convid!=0"> <label>Cancel Mute </label></li>
+          <li  (click)="changeddlUserOptions('clear')" style="padding:10px;" *ngIf="convuser.convid!=0"> <label>Clear chat </label></li>
+          <li  (click)="changeddlUserOptions('delete')" style="padding:10px;" *ngIf="convuser.convid!=0"> <label>Delete chat </label></li>
+         
+        </div>
+      </ul>
+    </ul>
+  </div>
+  <div style="height: 1000%;width: 100%;position: absolute;top:-100%;z-index: 99999;" [ngClass]="{hide: !showPopover}"  (click)="this.showPopover=!this.showPopover;clearPopOver()" *ngIf="convType.trim().toUpperCase()!='B'"></div>
+</ion-header> 
+
+
+<ion-content #Content scrollDownOnLoad="true">
+    <ion-infinite-scroll (ionInfinite)="onScroll($event)" position="top">
+        <ion-infinite-scroll-content 
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+ <ion-grid padding vertical>
+     <div *ngFor="let conv of convinfo; let i=index; let f=first;">
+
+        <ion-row *ngIf="f">
+            <ion-col style="text-align:center;padding:20px 5px 20px 5px">
+              <h2 class="date-divider"><span style="background:transparent;padding:0px 20px"><span class="alertMsg" style="background-color: #b9d2de !important;">{{conv.ts | dateprocess }}</span></span></h2>
+              </ion-col>
+        </ion-row>
+        <ion-row *ngIf="i>0 && conv.dt!=convinfo[i-1].dt">
+            <ion-col style="text-align:center;padding:20px 5px 20px 5px">
+                <h2 class="date-divider"><span style="background:transparent;padding:0px 20px"><span class="alertMsg" style="background-color: #b9d2de !important;">{{conv.ts | dateprocess }}</span></span></h2>
+            </ion-col>
+        </ion-row>
+  
+      <!---------------------------------------------Message from Others-------------------------------------------------------------------------------->
+        <ion-row padding-horizontal margin-bottom *ngIf="conv.msgSenderId!=loggedinUserId && conv.msgType.toUpperCase()!='A'  ">
+           <ion-col class="speech-bubble-lefts" padding-horizontal col-10 [ngClass]="highLightReply_array[i]==true &&  'colborderYes'  || 'colborderNo'   " id="div{{i}}">
+              <div text-right  *ngIf=" conv.msgDeleted.toUpperCase()!='Y' && convType.trim().toUpperCase()!='B'">
+                <!-- <img src="assets/icon/Gomo_Msg_icon/dwnarrw_grey.png" style="height:8px;"/> -->
+                <ion-select interface="popover" class="minipopup" style="width:15px !important;padding:0px !important;float:right;"  item-end mode="ios" >
+                    <ion-option value="1" (ionSelect)="changeddlMsgOptions(conv,'forward',i)" >Forward</ion-option>
+                    <ion-option value="2" (ionSelect)="changeddlMsgOptions(conv,'reply',i)">Reply</ion-option>
+                    <ion-option value="3" *ngIf="conv.msgFileType==''" (ionSelect)="changeddlMsgOptions(conv,'unread',i)" >Unread from here</ion-option>
+                    <ion-option value="5" *ngIf="conv.msgFileType!=''" (ionSelect)="downloadFile(conv.msgFileName)" >Download</ion-option>
+                    <ion-option value="4" (ionSelect)="changeddlMsgOptions(conv,'delete',i)">Delete</ion-option>
+                   
+                  </ion-select>
+              </div>
+              <!-----------------------------Forward Message-------------------------------------------->
+              <div text-left *ngIf="conv.msgType.toUpperCase()=='F' && conv.msgDeleted.toUpperCase()!='Y'" style="font-size:10px;color:#6c757d;float:left;width:100%;margin:-20px 0px 0px -10px" class="fa fa-share"></div>
+                 <!--------------------------ReplyMessage----------------------->
+              <div text-left *ngIf="(conv.selectedMsg!='' ||  conv.selectedMsgFileName!='') && conv.msgDeleted.toUpperCase()!='Y'  " style="padding:10px;background: #ccc;border-radius:5px;border-left: 4px solid #c17e1f;margin-bottom:1rem;width:90%;float:left" (click)="highlightReply(conv,i)" >
+                 <span style="font-size:1rem;padding:0px 5px;font-weight:bold;color:#c17e1f">Replied to <span style="text-decoration: uppercase">{{conv.selectedMsgSender}}</span></span>
+                 <div>
+                    <span style="font-size:1rem;color:black;padding:0px 5px" *ngIf="conv.selectedMsgFileType==''">{{conv.selectedMsg| limitChars:40}}</span>
+                    <div [ngClass]="(conv.selectedMsgFileType=='pdf')&& 'sprite sprite-pdf64' "></div>
+                    <div [ngClass]="((conv.selectedMsgFileType=='xls')||(conv.selectedMsgFileType=='xlsx')|| (conv.selectedMsgFileType=='ods'))&& 'sprite sprite-xlsx64' "></div>
+                    <div [ngClass]="((conv.selectedMsgFileType=='doc')||(conv.selectedMsgFileType=='docx'))&& 'sprite sprite-doc64' "></div>
+                    <img class="chat_img" *ngIf="((conv.selectedMsgFileType=='png')||(conv.selectedMsgFileType=='gif')||(conv.selectedMsgFileType=='jpg')||(conv.selectedMsgFileType=='jpeg'))" 
+                    src="{{apifileurl}}{{conv.selectedMsgFileName}}" 
+                    />
+                 </div>
+              </div>
+            <div text-left style="padding:5px;float:left" *ngIf="convType.toUpperCase()=='G' && conv.selectedMsg=='' && conv.msgDeleted.toUpperCase()!='Y'" class="{{conv.msgSenderCCode}}">{{conv.msgSenderName}} </div>
+            <div text-left style="padding:5px;float:left" *ngIf="convType.toUpperCase()=='G' && conv.selectedMsg!='' && conv.msgDeleted.toUpperCase()!='Y'" class="{{conv.msgSenderCCode}}">{{conv.msgSenderName}} </div>
+           
+              <!----Normal Text----->
+            <div [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="conv.msgFileType=='' && conv.msgDeleted.toUpperCase()!='Y' "  style="padding-left:5px;float:left;width:100%;">
+              {{conv.msgMessage}}
+                   <!--EDIT--->
+                   <span  class="fa fa-pencil" *ngIf="conv.msgEdited.toUpperCase()=='Y' && conv.msgDeleted.toUpperCase()!='Y' " style="margin-left:10px;"> </span>               
+           </div> 
+            
+            <!--DELETE-->
+            <div [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="conv.msgFileType=='' && conv.msgDeleted.toUpperCase()=='Y' " text-justify style="padding-left:5px;"
+             class="delete-span ">&nbsp;You deleted this message </div>
+             <div [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="conv.msgFileType!='' && conv.msgDeleted.toUpperCase()=='Y' " text-justify style="padding-left:5px;"
+             class="delete-span ">&nbsp;You deleted this message </div>
+                      <!-------File-------->
+           <div style="width:100%;float:left;">
+            <a [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="(conv.msgType.toUpperCase()=='M' || conv.msgType.toUpperCase()=='F')  && conv.msgFileType!='' && conv.msgDeleted.toUpperCase()!='Y' " href="{{apifileurl}}{{conv.msgFileName}}">
+             
+             
+              <div [ngClass]="(conv.msgFileType=='pdf')&& 'sprite sprite-pdf64' "></div>
+              <div [ngClass]="((conv.msgFileType=='xls')||(conv.msgFileType=='xlsx')|| (conv.msgFileType=='ods'))&& 'sprite sprite-xlsx64' "></div>
+              <div [ngClass]="((conv.msgFileType=='doc')||(conv.msgFileType=='docx'))&& 'sprite sprite-doc64' "></div>
+              <img class="chat_img" *ngIf="((conv.msgFileType=='png')||(conv.msgFileType=='gif')||(conv.msgFileType=='jpg')||(conv.msgFileType=='jpeg'))" 
+                src="{{apifileurl}}{{conv.msgFileName}}" 
+              />
+            </a>
+            
+           </div>
+           <!-- <div style="width:100%;float:left;background-color:black" (click)="downloadFile(conv.msgFileName)" *ngIf="(conv.msgType.toUpperCase()=='M' || conv.msgType.toUpperCase()=='F')  && conv.msgFileType!='' && conv.msgDeleted.toUpperCase()!='Y' ">
+             
+               <img src="assets/imgs/downloadbtn.png" style="width:15px;"/>
+                
+          </div> -->
+                  <!----------Time------------->
+                    
+            <div text-right style="padding:5px; font-size:1.2rem;color:#cbced0;float:right;width:100%" *ngIf="conv.msgDeleted.toUpperCase()!='Y'">
+              <!--BroadCast--->
+              <span  class="fa fa-info-circle" *ngIf="conv.msgNeedAttenstion.toUpperCase()=='Y' && conv.msgNeedAttenstionBy==0 " style=" color: goldenrod;font-size:1.6rem" (click)="acknowledgeBroadcast(conv)"> </span> 
+              <span  class="fa fa-check-circle" *ngIf="conv.msgNeedAttenstion.toUpperCase()=='Y'   && conv.msgNeedAttenstionBy!=0" style="font-size:1.6rem;color:green"> </span> 
+              {{conv.ts | utcConvert |  date: 'hh:mm  a'}}     </div>
+            
+           </ion-col>
+           <!-- <div style="width: 100%;position: absolute;" [ngClass]="{hide: !showPopover2[i]}">
+              <ul id="menu2" class="popover_class2" style="z-index:9999999">
+                <ul class="submenu2">
+                  <div class="arrow_box_down_Status2">
+                      <li (click)="clearPopOver()"><img src="assets/icon/Gomo_Msg_icon/close_icon.png" style="float:right"></li>
+                    <li  (click)="changeddlMsgOptions(conv,'forward',i)"  style="padding:5px; color:black;font-weight:bold"> <label>Forward </label></li>
+                    <li  (click)="changeddlMsgOptions(conv,'reply',i)" style="padding:5px;color:black;font-weight:bold"> <label>Reply </label></li>
+                    <li  (click)="changeddlMsgOptions(conv,'unread',i)" style="padding:5px;color:black;font-weight:bold"> <label>Unread from here </label></li>
+                    <li  (click)="changeddlMsgOptions(conv,'delete',i)" style="padding:5px;color:black;font-weight:bold"> <label>Delete</label></li>
+                   
+                  </div>
+                </ul>
+              </ul>
+            </div> -->
+           
+        </ion-row>
+      <!---------------------------------------------Message from LoggedinUser-------------------------------------------------------------------------------->        
+      <ion-row padding-horizontal margin-bottom *ngIf="conv.msgSenderId==loggedinUserId && conv.msgType.toUpperCase()!='A'  " >
+        <ion-col class="speech-bubble-rights" padding-horizontal offset-2 col-10 [ngClass]="highLightReply_array[i]==true &&  'colborderYes'  || 'colborderNo' " id="div{{i}}">
+            <div text-right (click)="openLi(i)" *ngIf="conv.msgDeleted.toUpperCase()!='Y' && convType.trim().toUpperCase()!='B'">
+              <!-- <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" style="float:right"/> -->
+              <ion-select interface="popover" class="minipopup" style="width:15px !important;padding:0px !important;float:right;"  item-end >
+                  <ion-option value="1" (ionSelect)="changeddlMsgOptions(conv,'forward',i)" >Forward</ion-option>
+                  <ion-option value="2" (ionSelect)="changeddlMsgOptions(conv,'reply',i)">Reply</ion-option>
+                  <ion-option value="3" (ionSelect)="changeddlMsgOptions(conv,'edit',i)" *ngIf="conv.msgType.toUpperCase()=='M' && conv.msgFileType=='' ">Edit</ion-option>
+                  <ion-option value="4" (ionSelect)="changeddlMsgOptions(conv,'delete',i)">Delete</ion-option>
+                </ion-select>
+            </div>
+             <!-----------------------------Forward Message-------------------------------------------->
+             <div text-left *ngIf="conv.msgType.toUpperCase()=='F' && conv.msgDeleted.toUpperCase()!='Y'" style="font-size:10px;color:#6c757d;float:left;width:100%;margin:-20px 0px 0px -10px" class="fa fa-share"></div>
+            <!--------------------------ReplyMessage----------------------->
+            <div text-left *ngIf="(conv.selectedMsg!='' || conv.selectedMsgFileName!='') && conv.msgDeleted.toUpperCase()!='Y' " style="padding:10px;background: #ccc;border-radius:5px;border-left: 4px solid #c17e1f;margin-bottom:1rem;width:90%;float:left" (click)="highlightReply(conv,i)"  >
+                <span style="font-size:1rem;padding:0px 5px;font-weight:bold;color:#c17e1f" *ngIf="conv.slectedMsgSenderId==loggedinUserId">Replied to yourself</span>
+                <span style="font-size:1rem;padding:0px 5px;font-weight:bold;color:#c17e1f" *ngIf="conv.slectedMsgSenderId!=loggedinUserId">Replied to <span style="text-decoration: uppercase">{{conv.selectedMsgSender}}</span></span>
+                <div>
+                  <span style="font-size:1rem;color:black;padding:0px 5px" *ngIf="conv.selectedMsgFileType==''">{{conv.selectedMsg| limitChars:40}}</span>
+                  <div [ngClass]="(conv.selectedMsgFileType=='pdf')&& 'sprite sprite-pdf64' "></div>
+                  <div [ngClass]="((conv.selectedMsgFileType=='xls')||(conv.selectedMsgFileType=='xlsx')|| (conv.selectedMsgFileType=='ods'))&& 'sprite sprite-xlsx64' "></div>
+                  <div [ngClass]="((conv.selectedMsgFileType=='doc')||(conv.selectedMsgFileType=='docx'))&& 'sprite sprite-doc64' "></div>
+                  <img class="chat_img" *ngIf="((conv.selectedMsgFileType=='png')||(conv.selectedMsgFileType=='gif')||(conv.selectedMsgFileType=='jpg')||(conv.selectedMsgFileType=='jpeg'))" 
+                  src="{{apifileurl}}{{conv.selectedMsgFileName}}" 
+                  />
+                </div>
+             </div>
+            <!-----------------Normal Text------------------>
+            <div [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="conv.msgFileType==''  && conv.msgDeleted.toUpperCase()!='Y'  "  style="padding-left:5px;float:left;width:100%;"
+           >{{conv.msgMessage}}
+             <!--EDIT--->
+           <span  class="fa fa-pencil" *ngIf="conv.msgEdited.toUpperCase()=='Y' && conv.msgDeleted.toUpperCase()!='Y'  " style="margin-left:10px;"> </span>
+          </div>
+           
+           
+             <!--DELETE-->
+             <div [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="conv.msgFileType=='' && conv.msgDeleted.toUpperCase()=='Y' " text-justify style="padding-left:5px;"
+             class="delete-span ">&nbsp;You deleted this message </div>
+             <div [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="conv.msgFileType!='' && conv.msgDeleted.toUpperCase()=='Y' " text-justify style="padding-left:5px;"
+             class="delete-span ">&nbsp;You deleted this message </div>
+            
+               <!----------File----------------->
+              <div style="float:left;width:100%;">
+                <a [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="(conv.msgType.toUpperCase()=='M' || conv.msgType.toUpperCase()=='F') && conv.msgFileType!='' && conv.msgDeleted.toUpperCase()!='Y'  " href="{{apifileurl}}{{conv.msgFileName}}">
+                   
+             
+                  <div [ngClass]="(conv.msgFileType=='pdf')&& 'sprite sprite-pdf64' "></div>
+                  <div [ngClass]="((conv.msgFileType=='xls')||(conv.msgFileType=='xlsx')|| (conv.msgFileType=='ods'))&& 'sprite sprite-xlsx64' "></div>
+                  <div [ngClass]="((conv.msgFileType=='doc')||(conv.msgFileType=='docx'))&& 'sprite sprite-doc64' "></div>
+                  <img class="chat_img" *ngIf="((conv.msgFileType=='png')||(conv.msgFileType=='gif')||(conv.msgFileType=='jpg')||(conv.msgFileType=='jpeg'))" 
+                  src="{{apifileurl}}{{conv.msgFileName}}"  style="float:left"
+                  />
+                </a>
+              </div>
+                   <!---------Time------>
+                   <div style="float:right;padding:5px;" *ngIf="conv.msgReadStatus.toUpperCase()=='R' && conv.msgDeleted.toUpperCase()!='Y' "><img src="assets/imgs/doubletick_blue.png" style="width:15px;"/></div>
+                   <div style="float:right;padding:5px;" *ngIf="conv.msgReadStatus.toUpperCase()!='R'  && conv.msgDeleted.toUpperCase()!='Y'"><img src="assets/imgs/singletick_blue.png" style="width:15px;"/></div>
+            <div text-right style="padding:5px; font-size:1.2rem;color:#cbced0;float:right" *ngIf="conv.msgDeleted.toUpperCase()!='Y'">
+              <!--BroadCast--->
+              <span  class="fa fa-list-alt" *ngIf="conv.msgNeedAttenstion.toUpperCase()=='Y'  && conv.msgNeedAttenstionBy==0" style="font-size:1.6rem" (click)="openReadInfo_Broadcast(conv)"> </span> 
+              
+              {{conv.ts | utcConvert |  date: 'hh:mm a'}}     </div>
+            
+        </ion-col>
+        <!-- <div style="height: 1000%;width: 100%;position: absolute;" [ngClass]="{hide: !showPopover2[i]}">
+            <ul id="menu2" class="popover_class2" style="z-index:9999999">
+              <ul class="submenu2">
+                <div class="arrow_box_down_Status2">
+                  <li (click)="clearPopOver()"><img src="assets/icon/Gomo_Msg_icon/close_icon.png" style="float:right"></li>
+                  <li  (click)="changeddlMsgOptions(conv,'forward',i)"  style="padding:5px;color:black;font-weight:bold"> <label>Forward </label></li>
+                  <li  (click)="changeddlMsgOptions(conv,'reply',i)" style="padding:5px;color:black;font-weight:bold"> <label>Reply </label></li>
+                  <li  (click)="changeddlMsgOptions(conv,'edit',i)" style="padding:5px;color:black;font-weight:bold" *ngIf="conv.msgType.toUpperCase()=='M' && conv.msgFileType!='' "  > <label>Edit </label></li>
+                  <li  (click)="changeddlMsgOptions(conv,'delete',i)" style="padding:5px;color:black;font-weight:bold"> <label>Delete</label></li>
+                 
+                </div>
+              </ul>
+            </ul>
+          </div> -->
+        </ion-row>
+        <!---------------------------------------------Alert Message -------------------------------------------------------------------------------->  
+        <ion-row  *ngIf="conv.msgType.toUpperCase()=='A' " style="margin-top:3px;margin-bottom:3px;">
+          <ion-col>
+            <div text-center class="alertMsg" [innerHTML]="conv.msgMessage"></div>
+          </ion-col>
+
+        </ion-row>
+        
+        <!-- <ion-row *ngIf="conv.ts !=convinfo[i-1].ts   && i>0">
+           <ion-col>
+             <h2 class="alertMsg" style="background-color: #b9d2de !important;">{{conv.ts | utcConvert |  date: 'MM.dd.yyyy '}}</h2>
+           </ion-col>
+        </ion-row>   -->
+     </div>
+     <ion-row *ngIf="doesLeft=='Y'"> 
+      <ion-col>
+        <ion-label style="color:black;font-size:1.6rem;font-weight:bold;white-space: pre-line;text-align:center">You can't send messages to this group because you're no longer a participant.</ion-label>
+      </ion-col>
+    </ion-row>
+ </ion-grid>
+ 
+ 
+
+</ion-content>
+
+
+<ion-footer >
+    <div style="
+          width: 95% !important;
+          max-height: 120% !important;
+          
+          z-index: 0 !important;
+          
+          box-shadow: none;
+          background-color: #ddd !important;
+          border: 5px solid white;
+          border-bottom-left-radius: 0px !important;
+          border-bottom-right-radius: 0px !important;
+          border-radius: 5px;
+          margin-left:9px; 
+          float: left;"
+      
+            *ngIf="replymsg!=''">
+            <ion-icon name="close-circle" style="float:right;position:relative" (click)="closeReplyMessage()"></ion-icon>
+            <div text-left style="padding:5px 5px 0px 5px;color:#ccc;color:#2295ce;float: left;" *ngIf="convType.toUpperCase()=='G' && replyConv.msgSenderId!=loggedinUserId ">{{replyConv.msgSenderName}} </div>
+             <!-----------------Normal Text------------------>
+             <div  *ngIf="replyConv.msgFileType=='' " text-justify style="padding:5px;width:90%;float:left;word-break:break-all;" 
+             [innerHtml]="replyConv.msgMessage | limitChars:150 "> </div>
+                <!----------File----------------->
+                <br/>
+                <a  *ngIf="(replyConv.msgType.toUpperCase()=='M' || replyConv.msgType.toUpperCase()=='F')&& replyConv.msgFileType!='' " href="{{apifileurl}}{{replyConv.msgFileName}}" style="padding:3px;">
+              
+                   <div [ngClass]="(replyConv.msgFileType=='pdf')&& 'sprite sprite-pdf64' "></div>
+                   <div [ngClass]="((replyConv.msgFileType=='xls')||(replyConv.msgFileType=='xlsx')|| (replyConv.msgFileType=='ods'))&& 'sprite sprite-xlsx64' "></div>
+                   <div [ngClass]="((replyConv.msgFileType=='doc')||(replyConv.msgFileType=='docx'))&& 'sprite sprite-doc64' "></div>
+                   <img class="chat_img_reply" *ngIf="((replyConv.msgFileType=='png')||(replyConv.msgFileType=='gif')||(replyConv.msgFileType=='jpg')||(replyConv.msgFileType=='jpeg'))" 
+                   src="{{apifileurl}}{{replyConv.msgFileName}}" 
+                   />
+                 </a>
+           
+           
+          </div>
+          <ion-grid no-padding  style="float:left;"  [ngClass]="{hide: (doesLeft=='Y')}">
+    
+              <ion-row>
+                <ion-col>
+                   <div class="chat-input" style="width:100%">
+                     <div style="width:100%;" [ngClass]="{hide: (convType.trim().toUpperCase()=='B')}">
+                      <div style="width:7%;float:left;padding-top:17px;height:inherit "  *ngIf="editFlag==0" >
+                        <img src="assets/icon/Gomo_Msg_icon/plus_chat.jpg" (click)="this.showPopover_footer=!this.showPopover_footer"/>
+                      </div>
+                       <div style="width:70%;float:left;padding-top:0px;padding-left:0px;height:inherit">
+                          <textarea  #chat_input (focusin)="onFocus()" placeholder="Type a message.." [(ngModel)]="message" style="padding-left:10px;border:none; width: calc(100% - 10px);;height:auto;margin-top:20px;" (focus)="txtareaChange()" (blur)="txtareaBlur()"></textarea>
+                       </div>
+                      
+                       <div style="width:10%;float:right;padding-top:17px;height:inherit " (click)="SendMessage();" *ngIf="message!='' && editFlag==0">
+                         <img src="assets/icon/Gomo_Msg_icon/sendmsg.png"/>
+                       </div>
+                       <div style="width:10%;float:right;padding-top:17px;height:inherit " (click)="EditMessage_Send();" *ngIf="message!='' && editFlag==1">
+                        <img src="assets/icon/Gomo_Msg_icon/sendmsg.png"/>
+                      </div>
+                      <div style="width:10%;float:right;padding-top:20px;height:inherit " (click)="emojiChange();">
+                          <img src="assets/icon/Gomo_Msg_icon/smiley_icon.png"/>
+                     </div>
+                     </div>
+                   </div>
+                </ion-col>
+              </ion-row>
+              <div style="height: 1000%;width: 100%;position: absolute;" [ngClass]="{hide: !showPopover_footer}"  *ngIf="convType.trim().toUpperCase()!='B'">
+                <ul id="menu" class="popover_footerclass" style="z-index:9999999">
+                  <ul class="submenu_footer">
+                    <div class="arrow_box_down_Status_footer">
+                      <li  (click)="changeddlFoolterOptions('camera')"  style="padding:10px;float:left;">
+                        <div style="float:left">
+                          <img src="assets/icon/Footer/cam_gryicon.png" style="float:left;width:80%"/>
+                        </div>
+                         <div style="float:left;margin-top:0.6rem;">
+                           <label>Camera </label>
+                          </div>
+                        </li>
+                        <li  (click)="changeddlFoolterOptions('media')"  style="padding:10px;float:left;" >
+                          <div style="float:left">
+                            <img src="assets/icon/Footer/media_gryicon.png" style="float:left;width:80%" />
+                          </div>
+                          <div style="float:left;margin-top:0.5rem;">
+                             <label style="margin-left:0.1rem">Media </label>
+                            </div>
+                          </li>
+
+                      <li  (click)="changeddlFoolterOptions('doc')" style="padding:10px;float:left;" >
+                        <div style="float:left">
+                          <img src="assets/icon/Footer/doc_gryicon.png" style="float:left;width:80%;margin-left:5px;margin-top:-2px;"/>
+                         </div>
+                         <div style="float:left;margin-top:0.5rem">
+                           <label style="margin-left:0.6rem">Document </label>
+                          </div>
+                        </li>
+                      <li  (click)="changeddlFoolterOptions('loc')" style="padding:10px;float:left;display:none;" ><img src="assets/icon/Footer/track_gryicon.png" style="float:left;width:15%;margin-left:5px;margin-top:-2px;"/> <label style="margin-left:10px">Location </label></li>
+                      <li  (click)="changeddlFoolterOptions('contact')" style="padding:10px;display:none;float:left" ><img src="assets/icon/Footer/per_gryicon.png" style="float:left;width:15%;margin-left:5px;margin-top:-2px;"/> <label style="margin-left:10px">Contact </label></li>
+                      <li  (click)="changeddlFoolterOptions('cancel')" style="padding:10px;float:left" > <label  style="color:dodgerblue;text-decoration: underline;margin-left:4.4rem">Cancel </label></li>
+                     
+                    </div>
+                  </ul>
+                </ul>
+              </div>
+              <div style="height: 1000%;width: 100%;position: absolute;top:-100%;z-index: 99999;" [ngClass]="{hide: !showPopover_footer}"  (click)="this.showPopover_footer=!this.showPopover_footer;clearPopOver()" *ngIf="convType.trim().toUpperCase()!='B'"></div>
+           
+            <ion-row [hidden]="!emoji" padding-vertical align-items-center>
+              <ion-col text-center col-12>
+                <!-- <emoji-mart set="apple" sheetSize="64" [style]="{ position: 'relative', bottom: '0px', right: '0px',left:'0px'}" [showPreview]="false"
+                  (emojiClick)="addEmoji($event)"></emoji-mart> -->
+                  <emoji-mart set="apple" sheetSize="32" [style]="{bottom: '0px', right: '0px',left:'0px'}"
+                    [showPreview]="false"
+                     (emojiClick)="addEmoji($event)"
+                      exclude="{ flags: 'Flags',search: 'Search Results' }" 
+                      include="{recent: 'Frequently Used',people: 'Smileys & People',nature: 'Animals & Nature',foods: 'Food & Drink',activity: 'Activity',places: 'Travel & Places',objects: 'Objects',symbols: 'Symbols'}">
+                  </emoji-mart>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+</ion-footer>

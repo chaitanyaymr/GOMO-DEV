@@ -1,1 +1,21 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content" persistent="true" >
+    <ion-content style="background-color:#337ab7 !important;color:white">
+      <ion-list style="background:#337ab7;color:white;"  >
+            <button menuToggle ion-item (click)="profile()" style="background:#337ab7;color:white;border-top:none;">
+                    <ion-avatar style="float:left;width: calc(15%);margin-left: 1rem;">   
+                        <img src="{{gomenv.profileimg || defaultimage}}" />
+                    </ion-avatar>
+                    <label style="float:left;margin-left:1rem;margin-top:1rem;">{{gomenv.username}}</label>
+                </button>
+          <button menuToggle ion-item *ngFor="let p of pages" (click)="openPage(p)" style="background:#337ab7;color:white;border-bottom:1px solid #3fc7f3" no-lines detail-none>
+              <ion-icon name="{{p.name}}" style="background:transparent;color:#208cae"></ion-icon>&nbsp;&nbsp;{{p.title}}
+          </button>
+          <button menuToggle ion-item (click)="Logout()" style="background:#337ab7;color:white;" no-lines detail-none>
+                <ion-icon name="log-out"  style="float:left"> </ion-icon>
+                &nbsp;&nbsp;Log out <span style="color:#fd7e14;font-size:1.5rem;float:right;margin:1px;">Ver: 1.0.10</span>                   
+          </button>
+      </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

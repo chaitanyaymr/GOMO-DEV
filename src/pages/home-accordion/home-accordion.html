@@ -1,0 +1,284 @@
+<!--
+  Generated template for the HomeAccordionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content (click)="hideModal($event)">
+  
+  <!----------------------------All Messages------------------------------------------------------->
+  <ion-row (click)="closeModal('0',0)">
+    <ion-col style="padding:0;">
+        <ion-grid  style="background:black;color:#fff;">
+            <ion-row>
+                <ion-col col-3 style="display:flex;align-content: center;justify-content: center">
+                    <img  src="assets/icon/menu_icons/chat_icon.png" style="width:22px;"/>
+                </ion-col>
+                 <ion-col col-6>
+                    <ion-label style="margin:0px;font-size:1.6rem;padding-left:0.6rem;">All Chats</ion-label>
+                </ion-col>
+                <ion-col col-2 style="margin-left:0.3rem">
+                    <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png"  style="float:right;width:10px;transform:rotate(270deg);margin-top:7px;" />
+                </ion-col>
+              </ion-row>
+        </ion-grid>
+    </ion-col>
+  </ion-row>
+   
+  <!------------------------------------------------------------------------------------------------->
+<!-------------------------------By Person------------------------------------------->
+ <ion-card>
+   <ion-card-header (click)="toggleAccordion('p')">
+     <ion-grid no-padding>
+        <ion-row>
+          <ion-col col-3>
+              <img  src="assets/icon/menu_icons/person_icon.png" style="width:15px;"/>
+          </ion-col>
+           <ion-col col-6>
+              <ion-label style="margin:0px;font-size:1.6rem">By Person</ion-label>
+          </ion-col>
+          <ion-col col-3 style="padding-top:7px;">
+              <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" *ngIf="this.accordionExpanded_people==false" style="float:right;width:10px;" />
+              <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" *ngIf="this.accordionExpanded_people==true" style="float:right;transform:rotate(180deg);width:10px;" />
+          </ion-col>
+        </ion-row>
+     </ion-grid>   
+      
+    </ion-card-header>
+   <ion-card-content #ccP style="overflow: auto">
+     <ion-grid>
+       <div *ngIf="people?.length>0">
+         <ion-row>
+           <ion-col>
+              <ion-searchbar  [(ngModel)]="searchPeople" ></ion-searchbar>
+           </ion-col>
+         </ion-row>
+       <ion-row *ngFor="let p of people| searchForAccordion:searchPeople" >
+         <ion-col (click)="search('p',p)">
+            <ion-label style="text-transform: capitalize">{{p.formTitle | limitChars:18}}<img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png"  style="float:right;transform:rotate(270deg);width:10px;margin-top:7px;" /></ion-label>
+         </ion-col>
+       </ion-row>
+      </div>
+       <ion-row *ngIf="people?.length==0">
+         <ion-col>
+           <ion-label style="color:#ffd740;font-weight:bold;text-align: center">No Records !</ion-label>
+         </ion-col>
+       </ion-row>
+     </ion-grid>
+   </ion-card-content>
+ </ion-card>
+<!----------------------------------------------------------------------------------------------->
+
+<!-------------------------------By Group------------------------------------------->
+<ion-card>
+    <ion-card-header (click)="toggleAccordion('g')">
+      <ion-grid no-padding>
+         <ion-row>
+           <ion-col col-3>
+               <img  src="assets/icon/menu_icons/group_icon.png" style="width:22px;"/>
+           </ion-col>
+            <ion-col col-6>
+               <ion-label style="margin:0px;font-size:1.6rem">By Group</ion-label>
+           </ion-col>
+           <ion-col col-3 style="padding-top:7px;">
+               <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" *ngIf="this.accordionExpanded_group==false" style="float:right;width:10px;" />
+               <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" *ngIf="this.accordionExpanded_group==true" style="float:right;transform:rotate(180deg);width:10px;" />
+           </ion-col>
+         </ion-row>
+      </ion-grid>   
+       
+     </ion-card-header>
+    <ion-card-content #ccG style="overflow: auto">
+      <ion-grid>
+        <div *ngIf="group?.length>0">
+          <ion-row>
+            <ion-col>
+               <ion-searchbar  [(ngModel)]="searchGroup" ></ion-searchbar>
+            </ion-col>
+          </ion-row>
+        <ion-row *ngFor="let g of group| searchForAccordion:searchGroup" >
+          <ion-col (click)="search('g',g)">
+             <ion-label style="text-transform: capitalize">{{g.formTitle | limitChars:18}}<img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png"  style="float:right;transform:rotate(270deg);width:10px;margin-top:7px;" /></ion-label>
+          </ion-col>
+        </ion-row>
+       </div>
+        <ion-row *ngIf="group?.length==0">
+          <ion-col>
+            <ion-label style="color:#ffd740;font-weight:bold;text-align: center">No Records !</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <!----------------------------------------------------------------------------------------------->
+
+
+
+  <!-------------------------------By Project------------------------------------------->
+  <ion-card>
+      <ion-card-header (click)="toggleAccordion('prj')">
+        <ion-grid no-padding>
+           <ion-row>
+             <ion-col col-3>
+                 <img  src="assets/icon/menu_icons/project_icon.png" style="width:22px;"/>
+             </ion-col>
+              <ion-col col-6>
+                 <ion-label style="margin:0px;font-size:1.6rem">By Projects</ion-label>
+             </ion-col>
+             <ion-col col-3 style="padding-top:7px;">
+                 <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" *ngIf="this.accordionExpanded_prj==false" style="float:right;width:10px;" />
+                 <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" *ngIf="this.accordionExpanded_prj==true" style="float:right;transform:rotate(180deg);width:10px;" />
+             </ion-col>
+           </ion-row>
+        </ion-grid>   
+         
+       </ion-card-header>
+      <ion-card-content #ccPrj style="overflow: auto">
+        <ion-grid>
+          <div *ngIf="prj?.length>0">
+            <ion-row>
+              <ion-col>
+                 <ion-searchbar  [(ngModel)]="searchPrj" ></ion-searchbar>
+              </ion-col>
+            </ion-row>
+          <ion-row *ngFor="let pr of prj| searchForAccordion:searchPrj" >
+            <ion-col (click)="search('prj',pr)">
+               <ion-label style="text-transform: capitalize">{{pr.formTitle | limitChars:18}}<img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png"  style="float:right;transform:rotate(270deg);width:10px;margin-top:7px;" /></ion-label>
+            </ion-col>
+          </ion-row>
+         </div>
+          <ion-row *ngIf="prj?.length==0">
+            <ion-col>
+              <ion-label style="color:#ffd740;font-weight:bold;text-align: center">No Records !</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <!----------------------------------------------------------------------------------------------->
+<!-------------------------------By Track------------------------------------------->
+<ion-card>
+    <ion-card-header (click)="toggleAccordion('track')">
+      <ion-grid no-padding>
+         <ion-row>
+           <ion-col col-3>
+               <img  src="assets/icon/menu_icons/track_icon.png" style="width:15px;"/>
+           </ion-col>
+            <ion-col col-6>
+               <ion-label style="margin:0px;font-size:1.6rem">By Track</ion-label>
+           </ion-col>
+           <ion-col col-3 style="padding-top:7px;">
+               <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" *ngIf="this.accordionExpanded_track==false" style="float:right;width:10px;" />
+               <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" *ngIf="this.accordionExpanded_track==true" style="float:right;transform:rotate(180deg);width:10px;" />
+           </ion-col>
+         </ion-row>
+      </ion-grid>   
+       
+     </ion-card-header>
+    <ion-card-content #ccTrack style="overflow: auto">
+      <ion-grid>
+        <div *ngIf="track?.length>0">
+          <ion-row>
+            <ion-col>
+               <ion-searchbar  [(ngModel)]="searchTrack" ></ion-searchbar>
+            </ion-col>
+          </ion-row>
+        <ion-row *ngFor="let t of track| searchForAccordion:searchTrack" >
+          <ion-col (click)="search('t',t)">
+             <ion-label style="text-transform: capitalize">{{t.formTitle | limitChars:18}}<img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png"  style="float:right;transform:rotate(270deg);width:10px;margin-top:7px;" /></ion-label>
+          </ion-col>
+        </ion-row>
+       </div>
+        <ion-row *ngIf="track?.length==0">
+          <ion-col >
+            <ion-label style="color:#ffd740;font-weight:bold;text-align: center">No Records !</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <!----------------------------------------------------------------------------------------------->
+  <!-------------------------------By Tags------------------------------------------->
+<ion-card>
+    <ion-card-header (click)="toggleAccordion('tags')">
+      <ion-grid no-padding>
+         <ion-row>
+           <ion-col col-3>
+               <img  src="assets/icon/menu_icons/tag_icon.png" style="width:22px;"/>
+           </ion-col>
+            <ion-col col-6>
+               <ion-label style="margin:0px;font-size:1.6rem">By Tags</ion-label>
+           </ion-col>
+           <ion-col col-3 style="padding-top:7px;">
+               <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" *ngIf="this.accordionExpanded_tags==false" style="float:right;width:10px;" />
+               <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png" *ngIf="this.accordionExpanded_tags==true" style="float:right;transform:rotate(180deg);width:10px;" />
+           </ion-col>
+         </ion-row>
+      </ion-grid>   
+       
+     </ion-card-header>
+    <ion-card-content #ccTags style="overflow: auto">
+      <ion-grid>
+        <div *ngIf="tags?.length>0">
+          <ion-row>
+            <ion-col>
+               <ion-searchbar  [(ngModel)]="searchTags" ></ion-searchbar>
+            </ion-col>
+          </ion-row>
+        <ion-row *ngFor="let tg of tags| searchForAccordion:searchTags" >
+          <ion-col (click)="search('tags',tg)">
+             <ion-label style="text-transform: capitalize">{{tg.formTitle | limitChars:18}}<img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png"  style="float:right;transform:rotate(270deg);width:10px;margin-top:7px;" /></ion-label>
+          </ion-col>
+        </ion-row>
+       </div>
+        <ion-row *ngIf="tags?.length==0">
+          <ion-col>
+            <ion-label style="color:#ffd740;font-weight:bold;text-align: center">No Records !</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <!----------------------------------------------------------------------------------------------->
+  <!----------------------------Archive------------------------------------------------------->
+ <ion-row>
+   <ion-col (click)="closeModal('arch',0)" style="padding:0px 5px 0px 5px !important">
+      <ion-grid  style="background:#2295cf;color:#fff;padding:5px 10px 5px 10px">
+          <ion-row>
+              <ion-col col-3 style="padding-left:1rem">
+                  <img  src="assets/icon/menu_icons/archeive_icon.png" style="width:17px;"/>
+              </ion-col>
+               <ion-col col-6>
+                  <ion-label style="margin:0px;font-size:1.6rem">Archive</ion-label>
+              </ion-col>
+              <ion-col col-2 style="margin-left:1rem">
+                  <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png"  style="float:right;width:10px;;transform:rotate(270deg);margin-top:7px;" />
+              </ion-col>
+            </ion-row>
+      </ion-grid>
+   </ion-col>
+ </ion-row>
+ 
+    <!------------------------------------------------------------------------------------------------->
+    <!----------------------------Broadcast------------------------------------------------------->
+
+      <ion-row>
+        <ion-col (click)="closeModal('brd',0)" style="padding:0px 5px 0px 5px !important">
+            <ion-grid  style="background:#2295cf;color:#fff;padding:5px 10px 5px 10px">
+                <ion-row>
+                    <ion-col col-3 style="padding-left:1rem">
+                        <img  src="assets/icon/menu_icons/braodcastt_wht_icon.png" style="width:17px;"/>
+                    </ion-col>
+                     <ion-col col-6>
+                        <ion-label style="margin:0px;font-size:1.6rem">Broadcast</ion-label>
+                    </ion-col>
+                    <ion-col col-2 style="margin-left:1rem">
+                        <img src="assets/icon/Gomo_Msg_icon/dwnarrw_white.png"  style="float:right;width:10px;;transform:rotate(270deg);margin-top:7px;" />
+                    </ion-col>
+                  </ion-row>
+            </ion-grid>
+        </ion-col>
+      </ion-row>
+     
+    <!------------------------------------------------------------------------------------------------->
+</ion-content>

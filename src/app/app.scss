@@ -14,3 +14,102 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+ion-content{
+    background: #fff !important;
+    color:#000 !important;
+    font-family:"Roboto-Regular" !important;
+    padding: 0px !important;
+}
+.scroll-content{
+    padding: 0px !important;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    font-family:"Roboto-Regular" !important;
+}
+.toolbar-background{
+    background: url('../assets/icon/Gomo_Msg_icon/header_bg.png') center center no-repeat/cover !important; 
+    font-family:"Roboto-Regular" !important;
+}
+ion-footer
+{
+    //background: url('../assets/icon/Gomo_Msg_icon/header_bg.png')  !important;
+    background-color: #053a76 !important;
+    font-family:"Roboto-Regular" !important;
+}
+// ion-modal.my-popup {
+//     @media (min-height: 500px) {
+//       ion-backdrop {
+//         visibility: visible;
+//       }
+//     }
+  
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     z-index: $z-index-overlay;
+  
+//     display: flex;
+  
+//     align-items: center;
+//     justify-content: center;
+  
+//     contain: strict;
+//     .modal-wrapper {
+//       &,
+//       .ion-page,
+//       .ion-page .content,
+//       .ion-page .content .scroll-content {
+//         contain: content;
+//         position: relative;
+//         top: auto;
+//         left: auto;
+//       }
+  
+//       z-index: $z-index-overlay-wrapper;
+//       display: flex;
+//       overflow: hidden;
+  
+//       flex-direction: column;
+  
+//       min-width: $alert-min-width;
+//       max-height: $alert-max-height;
+  
+//       opacity: 0;
+  
+//       height: auto;
+//       max-width: $alert-md-max-width;
+//       border-radius: $alert-md-border-radius;
+//       background-color: $alert-md-background-color;
+//       box-shadow: $alert-md-box-shadow;
+  
+//       .ion-page .content {
+//         background-color: color($colors, light);
+//       }
+//     }
+//   }
+input[type=checkbox]:not(old) + label, input[type=radio ]:not(old) + label {     
+    padding-left: 24px;
+    padding-top: 2px;
+    background:url(../assets/imgs/checks.png) no-repeat 0px;
+    line-height: 24px;
+    color:#fff;
+    font-weight: normal;
+    font-family:"Roboto-Regular" !important;
+}
+
+ input[type=checkbox]:not(old):checked + label {
+    background-position: 0 -51px;
+}
+.toolbar-md{
+    margin-top:0px !important;
+    min-height:auto !important;
+    padding:0px !important;
+}
+
+.alert-md .alert-sub-title
+{
+    font-size:14px !important;
+    font-weight:bold;
+}

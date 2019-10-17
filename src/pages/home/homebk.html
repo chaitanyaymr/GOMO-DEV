@@ -1,0 +1,109 @@
+<!--
+  Generated template for the HomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header style="background:#208cef;">
+    <ion-navbar>
+      <gomo-header></gomo-header>
+      
+    </ion-navbar>
+    <ion-row>
+      <div class="bar bar-header" ion-fixed> 
+        <!-- <img class="searchicon" width="15px" src="assets/imgs/search_icon.png"> -->
+        <ion-searchbar  [(ngModel)]="searchtxt" ></ion-searchbar>
+        <ion-row class="fixediconbar">
+          <ion-col *ngIf="convtype == 1">
+              <ion-label ion-left class="msgblock">
+                  {{convlistcount}} Messages
+              </ion-label>
+              <span ion-right class="iconblock">
+                <!-- <ion-icon name="logo-rss"></ion-icon>&nbsp;
+                <ion-icon name="open"></ion-icon>&nbsp;
+                <ion-icon ios="ios-funnel" md="md-funnel"></ion-icon> -->
+                <img width="20px" src="assets/imgs/broadcast_icon.png">
+                <img width="17px" src="assets/imgs/new_msg_icon.png" (click)="getnewlist()">
+                <img width="17px" *ngIf="sortstatus == 'A' || sortstatus == ''" src="assets/imgs/sorting_icon.png" (click)="clicksort(sortstatus)">
+                <img width="17px" *ngIf="sortstatus == 'D'" src="assets/imgs/desc2.png" (click)="clicksort(sortstatus)">
+              </span>
+          </ion-col>
+          <ion-col  *ngIf="convtype == 2">
+              <span class="bkbtn" (click)="backtoconv()"><ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>&nbsp;Contacts</span>
+          </ion-col>
+  
+        </ion-row>
+    </div>
+    </ion-row>
+  </ion-header>
+  <ion-content padding>
+  
+   
+    <ion-row>
+      <ion-col style="width:100%;padding:0px;">
+           
+        <ion-list *ngIf="convtype == 1">
+          <ion-card   *ngFor="let i of convlist | searchfilter : searchtxt">
+            <ion-item #listconv (click)="gotoconv(i)" class="conclass"  >
+                <ion-avatar item-start>
+                  <img *ngIf="i.groupType.trim()=='I'" src="https://devapi.usegomo.com/Images/Membersusers/{{i.convoImage}}" onError="this.src='https://devapi.usegomo.com/Images/Membersusers/avatar.png'" />
+                  <img *ngIf="i.groupType.trim()=='G'" src="https://devapi.usegomo.com/Images/GroupIcons/{{i.convoImage}}" onError="this.src='https://devapi.usegomo.com/Images/Membersusers/people.png'"/>
+                  <img *ngIf="i.groupType.trim()=='B'" src="https://devapi.usegomo.com/Images/Membersusers/people.png" onError="this.src='https://devapi.usegomo.com/Images/Membersusers/people.png'"/>
+                  <img *ngIf="i.groupType.trim()==''" src="https://devapi.usegomo.com/Images/Membersusers/avatar.png" onError="this.src='https://devapi.usegomo.com/Images/Membersusers/avatar.png'" />
+                </ion-avatar>
+                <div class="contentdiv">
+                    <h2>{{i.convoName}}</h2> 
+                    <p>{{i.convoLastMsg}}</p>
+                </div>
+              </ion-item>
+              <ion-item  class="optionclass" >
+                  <span item-end class="timezone">{{i.convoLastEnryDate | date : "MM:dd:yy"}} </span>
+                 
+                  <ion-select interface="popover"  class="minipopup" width="10vmax"  item-end>
+                      <ion-option value="1"  >Archive Chat</ion-option>
+                      <ion-option value="2">Favorite</ion-option>
+                      <ion-option value="3">Mute</ion-option>
+                      <ion-option value="4">Delete Chat</ion-option>
+                      <ion-option value="4">Mark as Unread</ion-option>
+                    </ion-select>
+              </ion-item>
+             <!-- <ion-item-options side="right">                   
+               <button ion-button (click)="archiveconv(listconv)">Archive</button>
+               <button ion-button color="danger" (click)="delconv(listconv)">delete</button>
+             </ion-item-options> -->
+            </ion-card>
+        </ion-list>
+  
+  
+        <ion-list *ngIf="convtype == 2">
+          <div  *ngFor="let i of convnewlist | searchfilter : searchtxt">
+              <ion-label class="alpastyle" *ngIf="getShortName(i.converationName)">
+                {{conchar1}}
+               </ion-label>
+            <ion-item-sliding  #listconv>
+               <ion-item (click)="gotoconv(i)">
+                   <ion-avatar item-start>
+                     <img *ngIf="i.groupType.trim()=='I'" src="https://devapi.usegomo.com/Images/Membersusers/{{i.converationImage}}" onError="this.src='https://devapi.usegomo.com/Images/Membersusers/avatar.png'" />
+                     <img *ngIf="i.groupType.trim()=='G'" src="https://devapi.usegomo.com/Images/GroupIcons/{{i.converationImage}}" onError="this.src='https://devapi.usegomo.com/Images/Membersusers/people.png'"/>
+                     <img *ngIf="i.groupType.trim()=='B'" src="https://devapi.usegomo.com/Images/Membersusers/people.png" onError="this.src='https://devapi.usegomo.com/Images/Membersusers/people.png'"/>
+                     <img *ngIf="i.groupType.trim()==''" src="https://devapi.usegomo.com/Images/Membersusers/avatar.png" onError="this.src='https://devapi.usegomo.com/Images/Membersusers/avatar.png'" />
+                   </ion-avatar>
+                   <h2>{{i.converationName}}</h2> 
+                   <p>{{i.converationDesignation}}</p>
+                   <!-- <ion-note item-end style="font-size:1.2rem;">{{i.convoLastEnryDate | date : "MM:dd:yy"}} </ion-note> -->
+                 </ion-item>
+                <ion-item-options side="right">
+                  <button ion-button (click)="archiveconv(listconv)">Archive</button>
+                  <button ion-button color="danger" (click)="delconv(listconv)">delete</button>
+                </ion-item-options>
+            </ion-item-sliding>
+          </div>
+           </ion-list>
+     
+  </ion-col>
+    </ion-row>
+  </ion-content>
+  <ion-footer>
+    <gomofooter></gomofooter>
+  </ion-footer>
+  

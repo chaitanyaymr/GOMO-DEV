@@ -1,0 +1,198 @@
+
+
+<ion-content>
+
+<!------------------------First Row-------------------------------------------------------->  
+<ion-row style="border-bottom:1px solid;padding-left:10%">
+  <ion-col>
+    <ion-grid  id="firstgrid" no-padding>
+        <ion-row>
+          <ion-col col-10>
+            <ion-label style="white-space: pre-wrap;font-size:1.8rem;font-weight:bold">{{dataObj.title}}.{{dataObj.ext}}</ion-label>
+          </ion-col>
+          <ion-col col-2>
+           <img src="assets/icon/Gomo_Msg_icon/edit_blue_icon.png" style="margin-top:30%">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label style="margin:0px;">Uploaded By:</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label style="font-weight: bold;font-size:1.2rem;color:#00adff;margin:0px;margin-bottom:2%">
+              {{dataObj.uploadedBy}} &nbsp;{{dataObj.uploadedTs}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+  </ion-col>
+</ion-row>
+
+<!------------------------Second Row--------------------------------------------------->
+<ion-row style="border-bottom: 1px solid;padding-left:10% ">
+  <ion-col>
+    <ion-grid no-padding >
+      <ion-row>
+        <ion-col>
+          <ion-label style="margin-bottom: 1%">Project:</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+         
+          <select [(ngModel)]="dataObj.project" (change)="changeProject($event.target.value)" class="ddlclass">
+              <option value="Amazon Austin" >AMAZON AUSTIN</option>
+              <option value="Facebook" >FACEBOOK</option>
+              <option value="Subway" >SUBWAY</option>
+          </select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-col>
+</ion-row>
+<!--------------------Thrid Row------------------------------------------------------->
+<ion-row style="border-bottom: 1px solid;padding-left:10% ">
+<ion-col>
+  <ion-grid no-padding>
+     <ion-row>
+       <ion-col>
+         <ion-label style="margin-bottom: 1%">
+           Document Category:
+         </ion-label>
+       </ion-col>
+     </ion-row>
+     <ion-row>
+       <ion-col>
+         <select [(ngModel)]="dataObj.documentCategory" (change)="changeDocumentCategory($event.target.value)" class="ddlclass"> 
+              <option value='Purchase Order' >PURCHASE ORDER</option>
+              <option value='Facebook' >FACEBOOK</option>
+              <option value='Subway'  >SUBWAY</option>
+            </select>
+       </ion-col>
+     </ion-row>
+     <ion-row>
+       <ion-col>
+        <ion-icon ios="ios-add-circle" md="md-add-circle" style="color:dodgerblue;float:left;"></ion-icon>
+            <ion-label style="font-size:1.4rem;color:dodgerblue;margin:1px 1px 1px 5px;">
+             Create New Category
+        </ion-label>
+       </ion-col>
+     </ion-row>
+  </ion-grid>
+</ion-col>
+</ion-row>
+<!-------------------------Fourth Row--------------------------------------------------------->
+<ion-row style="border-bottom: 1px solid;padding-left:10%">
+<ion-col>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col>
+        <ion-label>Versions ({{dataObj.versions_no}}):</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        <ion-grid style="max-height:100px;overflow-y: scroll" no-padding>
+           <ion-row *ngFor="let no of arr_versions">
+            <ion-col>
+              <img src="assets/icon/pdf-icon.jpg" style="width:25px;float:left;">
+             <ion-label style="margin:5px;float:left">{{dataObj.title}}-{{no}}.{{dataObj.ext}}</ion-label>
+            </ion-col> 
+           </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-col>
+</ion-row>
+
+<!--------------------------Fifth Row------------------------------------------------------------->
+
+<ion-row style="border-bottom: 1px solid;padding-left:10%">
+<ion-col>
+   <ion-grid no-padding>
+     <ion-row>
+       <ion-col>
+         <ion-label>Viewing Permissions</ion-label>
+       </ion-col>
+     </ion-row>
+     <ion-row>
+       <ion-col><ion-label style='text-decoration: underline' [ngStyle]="{'color':clr_private}">Private</ion-label></ion-col>
+       <ion-col><ion-label style="text-decoration: underline" [ngStyle]="{'color':clr_public}">Public</ion-label></ion-col>
+     </ion-row>
+   </ion-grid>
+</ion-col>
+</ion-row>
+
+<!-----------------------Sixth Row------------------------------------------------------------------------------->
+ <ion-row style="border-bottom: 1px solid;padding-left:10%">
+    <ion-col>
+      <ion-grid no-padding>
+         <ion-row>
+           <ion-col>
+             <ion-label>Editing Permissions:</ion-label>
+           </ion-col>
+         </ion-row>
+         <ion-row>
+           <ion-col col-9>
+             <ion-item no-lines style="padding:0px">
+               <ion-avatar item-left>
+                 <img src="{{dataObj.editingPermissions_img}}">
+               </ion-avatar>
+               <h2>{{dataObj.editingPermissions_name}}</h2>
+               <p>{{dataObj.editingPermissions_desg}}</p>
+             </ion-item>
+           </ion-col>
+           <ion-col col-3>
+              <ion-label style="font-size:1.2rem;color:dodgerblue;margin:0px">Remove</ion-label><br/>
+              <input type="checkbox" (change)="changeRemovePermission($event)" [(ngModel)]="removePermission"/>
+           </ion-col>
+         </ion-row>
+         <ion-row>
+           <ion-col>
+              <ion-icon ios="ios-create" md="md-create"></ion-icon>
+              &nbsp;
+              Add Editor
+           </ion-col>
+         </ion-row>
+      </ion-grid>
+    </ion-col>
+ </ion-row>
+<!---------------------------------Last Row------------------------------------------------------------->
+  <ion-row style="padding-left:10%">
+    <ion-col>
+      <ion-grid no-padding>
+       <ion-row>
+         <ion-col>
+           <ion-label style="color:black;font-size:1.6rem">Tags:</ion-label>
+         </ion-col>
+       </ion-row>
+       <ion-row>
+         <ion-col>
+           <ion-grid>
+             <ion-row>
+               <ion-col *ngFor="let t of tags" col-4>
+                   <ion-label style="padding:5px;background:purple;color:white;font-size:1rem;margin:0px">{{t.name}}</ion-label>
+               </ion-col>
+             </ion-row>
+           </ion-grid>
+         </ion-col>
+       </ion-row>
+       <ion-row>
+         <ion-col>
+           <ion-input placeholder="Name New" [ngModel]="newtag" style="border:1px solid grey;border-radius:5px;"></ion-input>
+         </ion-col>
+       </ion-row>
+       <ion-row>
+         <ion-col>
+            <ion-icon ios="ios-add-circle" md="md-add-circle" style="color:dodgerblue;float:left"></ion-icon>
+            
+            <ion-label style="color:dodgerblue;text-decoration: underline;float:left">Add Tag</ion-label>
+         </ion-col>
+       </ion-row>
+      </ion-grid>
+    </ion-col>
+  </ion-row>
+</ion-content>

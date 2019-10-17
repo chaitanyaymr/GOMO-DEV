@@ -1,0 +1,30 @@
+
+<ion-card>
+    <ion-card-header class="cardheader">
+        <ion-label class="cardtitle"> 
+            Participants 
+        </ion-label>
+        <img src= "assets/icon/Gomo_Msg_icon/close_icon_new.png" style="width:5%;float:right" (click)="closeModal()"/>
+        
+    </ion-card-header>
+    <ion-card-content padding>
+        <ion-list> 
+            <ion-searchbar  [(ngModel)]="searchTerm" ></ion-searchbar>  
+          
+            <ion-scroll scrollY="true"> 
+            <ion-item *ngFor="let x of users | searchParticipants :searchTerm">     
+                <ion-checkbox class="concheckbox" item-left (ionChange)="selectMember(x,$event)" [checked]="x.userAdded.toUpperCase()=='Y'"></ion-checkbox>
+                <ion-avatar slot="start" class="md hydrated" item-left>
+                   
+                    
+                    <img  src="https://devapi.usegomo.com/Images/Membersusers/{{x.userImage}}" onError="this.src='https://devapi.usegomo.com/Images/Membersusers/avatar.png'" />
+                   
+                </ion-avatar>   
+                <ion-label slot="end" item-content class="contitle">
+                 {{x.userName}}
+                  <p class="consubtitle">{{x.userRole}}</p>
+                </ion-label>
+            </ion-item>      
+            </ion-scroll>
+      </ion-list>
+       </ion-card-content>
