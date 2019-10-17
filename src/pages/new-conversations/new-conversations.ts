@@ -1,8 +1,8 @@
+import { IonicImageCacheConfig } from 'ionic3-image-cache';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { GomoServiceProvider } from '../../providers/gomo-service/gomo-service';
 import { GomoEnvironment } from '../../common/gomoenvironmnet';
-
 /**
  * Generated class for the NewConversationsPage page.
  *
@@ -24,15 +24,22 @@ convnewlist:any=[];
 userGroupList:any=[];
 convnewlistcount:any="";
 public searchtxt:string="";
+def_img:any="";
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     private gomoserv:GomoServiceProvider,
     private gomoenv:GomoEnvironment,
-    private modalctrl:ModalController
+    private modalctrl:ModalController,
+    private imgconfig:IonicImageCacheConfig
+
     ) {
     this.loginUid=this.navParams.get("uid");
-    this.gomoenv.pageid="newconv"
+    this.gomoenv.pageid="newconv";
+    this.imgconfig.AltData="No Image";
+    this.imgconfig.alt="assets/icon/gpeople.png";
+    this.def_img="assets/icon/gpeople.png";
+    
   }
 
   ionViewDidLoad() {
@@ -175,5 +182,8 @@ backtoconv()
   this.navCtrl.setRoot("1",{LoginID:this.loginUid});
 }
 
-
+onImageLoad(event)
+{
+  console.log("image loadevent",event)
+}
 }//end for page

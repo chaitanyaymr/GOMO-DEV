@@ -7,13 +7,14 @@ import { DateProcessPipeModule } from '../../pipes/dateprocess/dateprocesspipemo
 import { SearchFilterPipeModule } from '../../pipes/searchfilter/searchfilter.module';
 import { HomedtfilterPipeModule } from '../../pipes/homedtfilter/hmdtfiletr.modules';
 import { LimitCharsPipeModule } from '../../pipes/limit-chars/LimitCharsPipeModule';
-
+import {IonicImageCacheModule} from 'ionic3-image-cache';
 @NgModule({
   declarations: [
     NewConversationsPage,
   ],
   imports: [
     IonicPageModule.forChild(NewConversationsPage),
+    IonicImageCacheModule.forRoot(),
     GomoHeaderModule,GomoFooterModule,DateProcessPipeModule,
     SearchFilterPipeModule,HomedtfilterPipeModule,LimitCharsPipeModule
   ],

@@ -148,8 +148,8 @@
             <div text-left style="padding:5px;float:left" *ngIf="convType.toUpperCase()=='G' && conv.selectedMsg!='' && conv.msgDeleted.toUpperCase()!='Y'" class="{{conv.msgSenderCCode}}">{{conv.msgSenderName}} </div>
            
               <!----Normal Text----->
-            <div [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="conv.msgFileType=='' && conv.msgDeleted.toUpperCase()!='Y' "  style="padding-left:5px;float:left;width:100%;">
-              {{conv.msgMessage}}
+            <div [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="conv.msgFileType=='' && conv.msgDeleted.toUpperCase()!='Y' "  style="padding-left:5px;float:left;width:100%;" [innerHTML]="conv.msgMessage">
+              
                    <!--EDIT--->
                    <span  class="fa fa-pencil" *ngIf="conv.msgEdited.toUpperCase()=='Y' && conv.msgDeleted.toUpperCase()!='Y' " style="margin-left:10px;"> </span>               
            </div> 
@@ -233,7 +233,7 @@
              </div>
             <!-----------------Normal Text------------------>
             <div [ngClass]="{'paddingtop-5':(convType.toUpperCase()=='G')?true:false}" *ngIf="conv.msgFileType==''  && conv.msgDeleted.toUpperCase()!='Y'  "  style="padding-left:5px;float:left;width:100%;"
-           >{{conv.msgMessage}}
+           [innerHTML]="conv.msgMessage">
              <!--EDIT--->
            <span  class="fa fa-pencil" *ngIf="conv.msgEdited.toUpperCase()=='Y' && conv.msgDeleted.toUpperCase()!='Y'  " style="margin-left:10px;"> </span>
           </div>

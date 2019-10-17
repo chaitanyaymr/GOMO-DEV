@@ -24,6 +24,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
   ],
   imports: [
     BrowserModule,HttpModule,
+  
     IonicModule.forRoot(Gomo_tm),
    
   ],

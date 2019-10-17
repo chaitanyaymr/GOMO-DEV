@@ -36,10 +36,16 @@
                     <ion-item-sliding  #listconv>
                        <ion-item (click)="gotoconv(i,2)">
                            <ion-avatar item-start>
-                             <img *ngIf="i.groupType.trim()=='I'" src="https://devapi.usegomo.com/Images/Membersusers/{{i.converationImage}}"  onError="this.src='assets/icon/DeafaultUserImg.png'" />
-                             <img *ngIf="i.groupType.trim()=='G'" src="https://devapi.usegomo.com/Images/GroupIcons/{{i.converationImage}}"    onError="this.src='assets/icon/gpeople.png'"/>
-                             <img *ngIf="i.groupType.trim()=='B'" src="assets/icon/gpeople.png" />
-                             <img *ngIf="i.groupType.trim()==''" src="assets/icon/DeafaultUserImg.png" />
+                          
+                             <img   *ngIf="i.groupType.trim()=='G' && i.converationImage==''"  src="assets/icon/gpeople.png" />
+                             
+                              <ionic-image-cache 
+                              *ngIf="i.groupType.trim()=='G' && i.converationImage!=''" 
+                              [src]="'https://devapi.usegomo.com/Images/GroupIcons/'+i.converationImage"
+                              [fallbackUrl]="'assets/icon/gpeople.png'"
+                              [showPreview]="'false'"
+                              ></ionic-image-cache>
+                             
                            </ion-avatar>
                            <h2>{{i.converationName}}</h2> 
                            <p>{{i.converationDesignation}}</p>                     
@@ -55,10 +61,14 @@
                     <ion-item-sliding  #listconv>
                        <ion-item (click)="gotoconv(i,2)">
                            <ion-avatar item-start>
-                             <img *ngIf="i.groupType.trim()=='I'" src="https://devapi.usegomo.com/Images/Membersusers/{{i.converationImage}}"  onError="this.src='assets/icon/DeafaultUserImg.png'"  />
-                             <img *ngIf="i.groupType.trim()=='G'" src="https://devapi.usegomo.com/Images/GroupIcons/{{i.converationImage}}"    onError="this.src='assets/icon/gpeople.png'"/>
-                             <img *ngIf="i.groupType.trim()=='B'" src="https://devapi.usegomo.com/Images/GroupIcons/{{i.converationImage}}"              onError="this.src='assets/icon/gpeople.png'" />
-                             <img *ngIf="i.groupType.trim()==''" src="https://devapi.usegomo.com/Images/Membersusers/{{i.converationImage}}"    onError="this.src='assets/icon/DeafaultUserImg.png'"/>
+                              <img   *ngIf="i.groupType.trim()=='I' && i.converationImage==''"  src="assets/icon/DeafaultUserImg.png" />
+                                                       
+                              <img   *ngIf="i.groupType.trim()=='' && i.converationImage==''"  src="assets/icon/DeafaultUserImg.png" />
+                              <ionic-image-cache   [src]="'https://devapi.usegomo.com/Images/Membersusers/'+i.converationImage" *ngIf="i.groupType.trim()=='I' && i.converationImage!=''"  [fallbackUrl]="'assets/icon/DeafaultUserImg.png'"  [showPreview]="'false'" ></ionic-image-cache>
+                             
+                             
+                              <ionic-image-cache   [src]="'https://devapi.usegomo.com/Images/Membersusers/'+i.converationImage" *ngIf="i.groupType.trim()=='' && i.converationImage!=''"  [fallbackUrl]="'assets/icon/DeafaultUserImg.png'"  [showPreview]="'false'"    ></ionic-image-cache>
+                           
                            </ion-avatar>
                            <h2>{{i.converationName}}</h2> 
                            <p>{{i.converationDesignation}}</p>                       
