@@ -39,7 +39,7 @@ def_img:any="";
     this.imgconfig.AltData="No Image";
     this.imgconfig.alt="assets/icon/gpeople.png";
     this.def_img="assets/icon/gpeople.png";
-    
+    this.imgconfig.spinnerEnabled=false;
   }
 
   ionViewDidLoad() {
