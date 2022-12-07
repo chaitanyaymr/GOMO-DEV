@@ -42,7 +42,7 @@
     "angular2-text-mask": "^9.0.0",
     "com-badrit-base64": "^0.2.0",
     "cordova-android": "7.1.4",
-    "cordova-browser": "5.0.4",
+    "cordova-browser": "6.0.0",
     "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-device": "^1.1.7",
